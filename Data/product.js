@@ -1,9 +1,8 @@
-const product = [
+const products = [
     {
-        _id: "1",
         title: "center table",
-        details: "yellow and black",
-        image: "/image/6.png",
+        description: "yellow and black",
+        image: "/image/4.png||4.jpg||chrome HTML Document",
         price: 56000,
         rating: 4,
         numReview: 3,
@@ -11,10 +10,9 @@ const product = [
 
     },
     {
-        _id: "2",
         title: "couch",
-        details: "blue",
-        image: "/image/5.png",
+        description: "blue",
+        image: "/image/4.png||4.jpg||chrome HTML Document",
         price: 90000,
         rating: 3,
         numReview: 5,
@@ -22,20 +20,18 @@ const product = [
 
     },
     {
-        _id: "3",
         title: "bed set",
-        details: "wooden set with mattress",
-        image: "/image/5.png",
+        descrition: "wooden set with mattress",
+        image: "/image/4.png||4.jpg||chrome HTML Document",
         price: 700000,
         rating: 5,
         numReview: 4,
         stockQuantity: 8,
 
     },{
-        _id: "4",
         title: "wooden carbinate",
-        details: "wooden",
-        image: "/image/6.png",
+        descrition: "wooden",
+        image: "/image/4.png||4.jpg||chrome HTML Document",
         price: 560000,
         rating: 4,
         numReview: 3,
@@ -43,10 +39,9 @@ const product = [
 
     },
     {
-        _id: "4",
         title: "office chair",
-        details: "black",
-        image: "/image/4.png",
+        description: "black",
+        image: "/image/4.png||4.jpg||chrome HTML Document",
         price: 70000,
         rating: 4,
         numReview: 3,
@@ -54,10 +49,9 @@ const product = [
 
     },
     {
-        _id: "5",
         title: "office set",
-        details: "white and crime",
-        image: "/image/4.png",
+        description: "white and crime",
+        image: "/image/4.png||4.jpg||chrome HTML Document",
         price: 560000,
         rating: 4,
         numReview: 3,
@@ -65,5 +59,4 @@ const product = [
 
     },
 ]
-
-module.exports = product;
+module.exports = products

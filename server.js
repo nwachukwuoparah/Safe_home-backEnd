@@ -2,7 +2,6 @@ const mongoose = require("mongoose")
 const dotenv = require("dotenv")
 dotenv.config({path: "./CONFIG/config.env"})
 const app = require("./app");
-
 mongoose.set("strictQuery", true)
 
 const Db = process.env.DATABASE

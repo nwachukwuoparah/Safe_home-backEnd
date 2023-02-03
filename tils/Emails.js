@@ -1,5 +1,5 @@
-const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
+const nodemailer = require("nodemailer");
 dotenv.config({path: './CONFIG/config.env'})
 
 const mailSender = async(option)=>{
@@ -11,14 +11,13 @@ const mailSender = async(option)=>{
             secure: false
         },
     })
-    
+
     const mailOption = {
         from: process.env.EMAIL,
         to: option.email,
         subject:  option.subject,
         text: option.message
     };
-    await transporter.sendMail(mailOption)
-};
-
+    await transporter.sendMail(mailOption);
+ }
 module.exports = mailSender;

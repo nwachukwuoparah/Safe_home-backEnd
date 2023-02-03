@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema ({
-    nuser:{ 
+    user:{ 
         type: mongoose.Schema.Types.ObjectId,
         required: [true, "user is required"],
         ref: "user",
@@ -14,7 +14,7 @@ const orderSchema = new mongoose.Schema ({
             price: { type: Number, require: true},
             product: {
                 type: mongoose.Schema.Types.ObjectId,
-                required: [true, "user is required"],
+                required: true,
                 ref: "product",
             }
         }
@@ -27,7 +27,7 @@ const orderSchema = new mongoose.Schema ({
     },
     paymentMethod: {
         type: String,
-         required: [true, "paymentMethod is required"],
+         required: true,
          default: "master card, velve, paypal",
     },
     paymentResult: {
@@ -38,34 +38,39 @@ const orderSchema = new mongoose.Schema ({
     },
     taxprice: {
         type: String,
-        required: [true, "taxprice is required"],
+        required: true,
         default: 0.0,
     },
     shippingPrice: {
         type: String,
-        required: [true, "shippingPrice is required"],
+        required: true,
+        default: 0.0,
+    },
+    shippingPrice: {
+        type: String,
+        required: true,
         default: 0.0,
     },
     totalPrice: {
         type: String,
-        required: [true, "totalPrice is required"],
+        required: true,
         default: 0.0,
     },
     isPaid: {
         type: Boolean,
-        required: [true, "isPaid is required"],
+        required: true,
         default: false,
     },
     isDelivered: {
         type: Boolean,
-        required: [true, "isDelivered is required"],
+        required: true,
         default: false,
     },
     deliveryAt: {
-        type: date
+        type: Date
     },
     paidAt: {
-        type: date
+        type: Date
     },
     token: {
         type: String,
@@ -74,7 +79,7 @@ const orderSchema = new mongoose.Schema ({
    },
 
    {
-    timestamps: true,
+    timestamps: true
    });
 
    const order = mongoose.model("order", orderSchema)
