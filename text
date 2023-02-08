@@ -1,8 +1,3 @@
-DATABASE:mongodb+srv://ikeadighimchristiana:Kjl8EDvicTN0K1GU@safehome.puhyu2r.mongodb.net/?retryWrites=true&w=majority
-
-
-
-
 PORT=9999
 DATABASE=mongodb+srv://ikeadighimchristiana:Kjl8EDvicTN0K1GU@safehome.puhyu2r.mongodb.net/?retryWrites=true&w=majority
 
@@ -11,3 +6,7 @@ JWTSCRET="mysecret"
 SERVICE=gmail
 EMAIL=chisomike723@gmail.com
 EMAILPASSWORD=xmwtahpirkgnsfmn
+
+cloudinary name : dcjhdnm3y
+key: 298829313587928
+cloudkey: knmhs9UqyoPclmCRiCC8DdOvwe4

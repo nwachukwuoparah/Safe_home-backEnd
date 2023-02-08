@@ -1,7 +1,7 @@
 const products = [
     {
         title: "center table",
-        description: "yellow and black",
+        details: "yellow and black",
         image: "/image/4.png||4.jpg||chrome HTML Document",
         price: 56000,
         rating: 4,
@@ -11,7 +11,7 @@ const products = [
     },
     {
         title: "couch",
-        description: "blue",
+        details: "blue",
         image: "/image/4.png||4.jpg||chrome HTML Document",
         price: 90000,
         rating: 3,
@@ -21,7 +21,7 @@ const products = [
     },
     {
         title: "bed set",
-        descrition: "wooden set with mattress",
+        details: "wooden set with mattress",
         image: "/image/4.png||4.jpg||chrome HTML Document",
         price: 700000,
         rating: 5,
@@ -30,7 +30,7 @@ const products = [
 
     },{
         title: "wooden carbinate",
-        descrition: "wooden",
+        details: "wooden",
         image: "/image/4.png||4.jpg||chrome HTML Document",
         price: 560000,
         rating: 4,
@@ -40,7 +40,7 @@ const products = [
     },
     {
         title: "office chair",
-        description: "black",
+        details: "black",
         image: "/image/4.png||4.jpg||chrome HTML Document",
         price: 70000,
         rating: 4,
@@ -50,7 +50,7 @@ const products = [
     },
     {
         title: "office set",
-        description: "white and crime",
+        details: "white and crime",
         image: "/image/4.png||4.jpg||chrome HTML Document",
         price: 560000,
         rating: 4,

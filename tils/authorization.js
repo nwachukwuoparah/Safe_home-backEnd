@@ -8,7 +8,7 @@ const isSignIn = async (req, res, next) => {
         const userid = req.params.id;
         const user = await User.findById(userid)
         // console.log(user);
-        const authToken = user.token;
+         const authToken = user.token;
         if(!authToken) return res.status(401).json({message: "Not authorized"});
        jwt.verify(authToken, "mysecret", (err, payload)=>{
          if(err) return res.status(401).json({message: err.message})

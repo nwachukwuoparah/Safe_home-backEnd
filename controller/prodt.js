@@ -1,24 +1,22 @@
 const Addfurni = require('../models/product')
 const asyncHandler = require ("express-async-handler");
-const { request } = require('express');
-const order = require('../models/Order');
-const AddUser = require('../models/user');
 const cloudinary = require("../helper/cloudinary");
 
 exports.NewPro = asyncHandler (async (req, res) => {
     try{
-        const result = cloudinary.uploader.upload(req.files.image.tempFilePath)
+        const result = await cloudinary.uploader.upload(req.files.image.tempFilePath)
         const fruniData = {
             title:req.body.title,
             description:req.body.description,
-            image:req.body.image,
+            image:result.secure_url,
+            cloudId:result.public_id,
             price: req.body.price,
             rating: req.body.rating,
             numReview: req.body.numReview,
             stockQuantity: req.body.stockQuantity,
-            cloudId:result.public_id
+            
         }
-        const data = {fullname, dec, price}
+        // const data = {title,description,image,price,rating,numReview,stockQuantity,cloudId}
         const created = await Addfurni.create(fruniData);
         res.status(201).json({
             message: "New Furniture Added",
@@ -87,13 +85,14 @@ exports.UpdateFurni = asyncHandler(async(req, res) => {
     try{
         const id = req.params.id;
         const newUpdate = {
-            title: req.body.title,
-            description: req.body.description,
+            title:req.body.title,
+            description:req.body.description,
+            image:result.secure_url,
+            cloudId:result.public_id,
             price: req.body.price,
             rating: req.body.rating,
             numReview: req.body.numReview,
-            stockQuantity: req.body.stockQuantity
-            
+            stockQuantity: req.body.stockQuantity,
         }
         const reviewFurni = await Addfurni.findByIdAndUpdate(id, newUpdate);
         // res.status(201).json({
