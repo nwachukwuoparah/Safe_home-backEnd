@@ -46,36 +46,6 @@ exports.signUpUser = async(req, res) => {
     }
 }
 
-
-
-exports.login = async (req, res) => {
-    try{
-        const {email,password} = req.body;
-        const check = await realUser.findOne({email:email})
-        if(!check) return res.status(404).json({
-            message: "Not found"
-        })
-        const isPassword = await bcryptjs.compare(password, check.password)
-        if(!isPassword) return res.status(404).json({message: "Email or password incorrect"})
-
-        const myToken = jwt.sign({
-            id:check._id,
-            password: check.password,
-            IsAdmin:check.isAdmin},  process.env.JWT_TOKEN ,{expiresIn: "1d"})
-
-            check.token = myToken 
-            await check.save()
-            res.status(201).json({
-            message:"Successful",
-            data:check
-         })
-    } catch(err) {
-        res.status(400).json({
-            message: err.message
-        })
-    }
-}
-
 exports.UserVerify = async (req, res) => {
     try{    
         const userid = req.params.userid

@@ -4,6 +4,7 @@ const {Adminlogin,AdminSignUp,AdminVerify,Forgotpassword,passwordchange, isAdmin
 const Router = express.Router();
 
 
+
  Router.route('/adminLogin').post(Adminlogin)
 Router.route('/adminSign').post(AdminSignUp)
  Router.route('/adminVeri/:userid').post(AdminVerify)
