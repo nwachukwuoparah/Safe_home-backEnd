@@ -5,18 +5,30 @@ const jwt = require('jsonwebtoken');
  dotenv.config({path: './CONFIG/config.env'})
 
 const isSignIn = async (req, res, next) => {
-        const userid = req.params.id;
-        const user = await User.findById(userid)
-        // console.log(user);
-         const authToken = user.token;
-        if(!authToken) return res.status(401).json({message: "Not authorized"});
-       jwt.verify(authToken, "mysecret", (err, payload)=>{
-         if(err) return res.status(401).json({message: err.message})
-            req.user = payload
-            next()
-            // console.log(res.user);
-        })       
-}
+       const userId = req.params.userId;
+       const user = await User.findById(userId);
+       if(!user){
+        res.status(404).json({
+            message: "You are not authorized.."
+        })
+       }else{
+        const authToken = user.token;
+        if(!authToken){
+            res.status(404).json({
+                message: "You are not authorized to use.."
+            })
+        }else{
+            jwt.verify(authToken, process.env.JWT_TOKEN, (err, payLoad)=>{
+                if(err){
+                    return err.message
+                }else{
+                    req.user = payLoad;
+                    next()
+                }
+            })
+        }
+       }
+};
 
 const IsAdminAuth = (req, res, next)=>{
     isSignIn(req, res, ()=>{
@@ -24,7 +36,7 @@ const IsAdminAuth = (req, res, next)=>{
         if(req.user.IsAdmin){
             next()
         }else{
-            res.status(403).json({message: "You are not an admin"})
+            res.status(404).json({message: "You are not an admin"})
         }
     })
 }

@@ -18,7 +18,7 @@ exports.AdminSignUp = async(req, res) => {
             password: hash,
         }
         const createUser = await AddAdmin(data)
-        //createUser.isAdmin = true;
+        createUser.isAdmin = true;
         const myToken = jwt.sign({id:createUser._id,
              password: createUser.password,
              isAdmin:createUser.isAdmin},

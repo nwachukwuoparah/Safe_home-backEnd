@@ -1,6 +1,6 @@
 const express = require("express");
 const asyncHandler = require ("express-async-handler");
-const order = require("./../models/Order");
+const order = require("../models/Order");
 const protect = require("../middleware/errorhand")
 
 const orderRouter = express.Router()

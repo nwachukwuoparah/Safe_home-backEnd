@@ -14,7 +14,7 @@ exports.checkUser = async(req,res,next)=>{
                 message: "Not authorized.."
             })
         }else{
-            jwt.verify(authToken,"mysecret", (err, payLoad)=>{
+            jwt.verify(authToken,JWT_TOKEN, (err, payLoad)=>{
                 if(err){
                     res.status(400).json({
                         message: err.message

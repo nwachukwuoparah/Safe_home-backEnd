@@ -6,11 +6,11 @@ const {NewPro,DeleteFurni,UpdateFurni,orderRouter} = require('../controller/prod
 
 const router = express.Router();
 
-router.post('/admin/:id', IsAdminAuth, NewPro)
+router.post('/admin/:userid',NewPro)
 
-router.delete('/admin/:id/:productid', IsAdminAuth, DeleteFurni)
+router.delete('/admin/:userid/:productid', IsAdminAuth, DeleteFurni)
 
-router.patch('/admin/:id/:productid', IsAdminAuth, UpdateFurni)
+router.patch('/admin/:userid/:productid', IsAdminAuth, UpdateFurni)
 
  router.post('/admin/:id/',IsAdminAuth,  function(req, res){
     orderRouter})
