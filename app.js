@@ -4,7 +4,7 @@ const express = require("express")
 dotenv.config({path: "./CONFIG/config.env"})
 const adminRoute = require('./ROUTE/adminrotue');
 const user = require ('./ROUTE/UserRoute')
-const Auth = require('./ROUTE/AddUser')
+const Auth = require('./ROUTE/Adduser')
 const Authen = require("./ROUTE/addAdmin")
 const importData = require("./Dataimport")
 const {errorHandler, notfound} = require("./middleware/errorhand");
