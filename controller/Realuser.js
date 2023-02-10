@@ -122,3 +122,23 @@ exports.passwordchange= async(req,res)=>{
     }
 };
 
+exports.logOut = async(req,res) => {
+    try{
+        const userId = req.params.userId;
+        const {email, password} = req.body;
+        const genToken = jwt.sign({
+            userId,
+            email,
+            password
+        },process.env.JWTDESTROY);
+        realUser.token = genToken;
+        res.status(200).json({
+            message: "successfully logged out"
+        })
+    } catch(error) {
+        res.status(400).json({
+            message: error.message
+
+        })
+    }
+}
