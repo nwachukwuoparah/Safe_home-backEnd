@@ -5,7 +5,7 @@ const Router = express.Router();
 
 
 
-Router.route('/adminLogin').post(Adminlogin)
+Router.route('/Login').post(Adminlogin)
 Router.route('/adminSign').post(AdminSignUp)
 Router.route('/adminVeri/:id').post(AdminVerify)
 Router.route('/confirmAdmin/:userid').post(isAdminVerify)
