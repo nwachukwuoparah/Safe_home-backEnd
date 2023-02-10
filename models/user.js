@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema ({
         type: String,
         require: [true, "password is require"]
     },
-    order: {
+    brandname: {
         type: String,
         require: [true, "password is require"]
     },
