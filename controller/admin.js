@@ -8,7 +8,7 @@ const mailSender = require("../tils/Emails")
 
 exports.AdminSignUp = async(req, res) => {
     try{
-        const {fullname, email, password} = req.body
+        const {fullname, email, password,brandname} = req.body
         const salt = bcryptjs.genSaltSync(10);
         const hash = bcryptjs.hashSync(password, salt);
 
@@ -16,6 +16,7 @@ exports.AdminSignUp = async(req, res) => {
             fullname,
             email,
             password: hash,
+            brandname,
         }
         const createUser = await AddAdmin(data)
         createUser.isAdmin = true;
