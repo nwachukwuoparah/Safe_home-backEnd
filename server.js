@@ -15,5 +15,5 @@ mongoose.connect(Db, {
 const PORT =  process.env.PORT
 
 app.listen(PORT || 7079,() => {
-    console.log(`listening on port`+PORT)
+    console.log(`listening on port:`+PORT)
 })

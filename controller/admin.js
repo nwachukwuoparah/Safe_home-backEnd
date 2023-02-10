@@ -50,12 +50,12 @@ exports.AdminSignUp = async(req, res) => {
 
 exports.Adminlogin = async (req, res) => {
     try{
-        const {email,password} = req.body;
+        const {email} = req.body;
         const check = await AddAdmin.findOne({email:email})
         if(!check) return res.status(404).json({
             message: "Not found"
         })
-        const isPassword = await bcryptjs.compare(password, check.password)
+        const isPassword = await bcryptjs.compare(req.body.password, check.password)
         if(!isPassword) return res.status(404).json({message: "Email or password incorrect"})
 
         const myToken = jwt.sign({
@@ -65,9 +65,10 @@ exports.Adminlogin = async (req, res) => {
 
             check.token = myToken 
             await check.save()
+            const{password,...others} = check._doc
             res.status(201).json({
             message:"Successful",
-            data:check
+            data:others
          })
     } catch(err) {
         res.status(400).json({
@@ -108,11 +109,11 @@ exports.Forgotpassword = async (req, res) => {
         if(!userEmail) return  res.status(404).json({ message: "No Email" })
         const myToken = jwt.sign({
             id:userEmail._id,
-            IsAdmin:userEmail.isAdmin}, process.env.JWTTOKEN, {expiresIn: "1m"})
+            IsAdmin:userEmail.isAdmin}, process.env.JWT_TOKEN, {expiresIn: "1m"})
 
         const VerifyLink = `${req.protocol}://${req.get("host")}/api/changepassword/${userEmail._id}/${myToken}`
         const message = `Use this link ${VerifyLink} to change your password`;
-        sendEmail({
+        ({
           email: userEmail.email,
           subject: "Reset Pasword",
           message,
@@ -134,17 +135,18 @@ exports.Forgotpassword = async (req, res) => {
 exports.passwordchange= async(req,res)=>{
     try {
         const {password} = req.body;
-        const userId = req.params.userId;
-        const saltPwd = await bcrypt.genSalt(10);
-        const hassPwd = await bcrypt.hash(password, saltPwd);
-        const users = await AddAdmin.findById(userId);
+        const id = req.params.id;
+        const users = await AddAdmin.findById(id);
+        const saltPwd = await bcryptjs.genSalt(10);
+        const hassPwd = await bcryptjs.hash(password, saltPwd);
         await AddAdmin.findByIdAndUpdate(users._id,{
             password: hassPwd
         },
         {
             new: true
         } )
-        res.send("Successfully changed...")
+        res.status(200).json({
+            message: "Successfully changed..."})
     } catch (error) {
         res.status(400).json({
             message: error.message

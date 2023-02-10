@@ -21,6 +21,14 @@ app.use(fileUpload({
     useTempFiles:true
 }))
 
+app.get("/", (req, res) => {
+    res.status(200).send("WELCOME TO SAFE HOME FURNITURE")
+})
+
+
+// app.use(notfound)
+app.use(errorHandler)
+
 
 app.use("/api/import", importData)
 
@@ -31,13 +39,8 @@ app.use('/api', adminRoute);
 app.use("/api", user)
 
 app.use("/api/orders",orderRouter)
-// Router.route("/import", importData )
 
-app.use(notfound)
-app.use(errorHandler)
 
-app.use("/", (req, res) => {
-    res.status(200).send("My Api is working fine")
-})
+ 
 
 module.exports = app

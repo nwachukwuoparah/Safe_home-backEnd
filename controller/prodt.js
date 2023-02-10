@@ -18,6 +18,7 @@ exports.NewPro = asyncHandler (async (req, res) => {
         }
         // const data = {title,description,image,price,rating,numReview,stockQuantity,cloudId}
         const created = await Addfurni.create(fruniData);
+        console.log(created)
         res.status(201).json({
             message: "New Furniture Added",
             data: created
@@ -33,7 +34,8 @@ exports.NewPro = asyncHandler (async (req, res) => {
 
 exports.GetallFurni = asyncHandler(async (req, res) => {
     try{
-        const allFurni = await Addfurni.find();
+        const user = req.params.id;
+        const allFurni = await Addfurni.find(user);
         res.status(201).json({
             message: "Allfurni",
             length: allFurni.length,
@@ -47,15 +49,23 @@ exports.GetallFurni = asyncHandler(async (req, res) => {
     }
 }
 )
-
+//asyncHandler(
 exports.GetSingle = asyncHandler(async (req, res) => {
     try{
-        const allFurni = await Addfurni.findById(req.params.id);
-        res.status(201).json({
-            message: "Allfurni",
-            length: allFurni.length,
-            data: allFurni
-        });
+        const id = req.params.id;
+        const allFurni = await Addfurni.findOne({id});
+        // console.log(allFurni)
+        if (allFurni) {
+            res.status(201).json({
+                message: "Allfurni",
+                //length: allFurni.length,
+                data: allFurni
+            });
+        } else {
+            res.status(404).json({
+                message: "No furniture in the database"
+            })
+        }
 
     }catch(e){
         res.status(400).json({
@@ -64,6 +74,7 @@ exports.GetSingle = asyncHandler(async (req, res) => {
     }
 }
 )
+
 
 exports.DeleteFurni =  async (req, res) => {
     try{
@@ -73,9 +84,9 @@ exports.DeleteFurni =  async (req, res) => {
             message: "Deleted",
         });
     
-    }catch(e){
+    }catch(error){
         res.status(400).json({
-            message: e.message
+            message: error.message
         });
     }
 }

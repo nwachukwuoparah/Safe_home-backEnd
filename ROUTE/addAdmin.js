@@ -10,5 +10,5 @@ Router.route('/adminSign').post(AdminSignUp)
 Router.route('/adminVeri/:id').post(AdminVerify)
 Router.route('/confirmAdmin/:userid').post(isAdminVerify)
 Router.route('/adminForget').post(Forgotpassword)
-Router.route('/adminChng').post(passwordchange)
+Router.route('/adminChng/:id').post(passwordchange)
 module.exports = Router;
