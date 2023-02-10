@@ -3,8 +3,6 @@ const { Adminlogin, AdminSignUp, AdminVerify, Forgotpassword, passwordchange, is
 
 const Router = express.Router();
 
-
-
 Router.route('/Login').post(Adminlogin)
 Router.route('/adminSign').post(AdminSignUp)
 Router.route('/adminVeri/:id').post(AdminVerify)
