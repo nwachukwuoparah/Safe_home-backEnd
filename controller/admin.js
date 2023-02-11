@@ -34,7 +34,7 @@ exports.AdminSignUp = async(req, res) => {
             }else{
             createUser.save()
 
-            const VerifyLink = `${req.protocol}://${req.get("host")}/api/adminVeri/${createUser._id}`
+            const VerifyLink = `${req.protocol}://https://safehome.onrender.com/#/verify/${createUser._id}`
             const message = `Thank you for registering with us. Please click on this link ${VerifyLink} to verify`;
             mailSender({
             email: createUser.email,
