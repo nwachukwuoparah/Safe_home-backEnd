@@ -8,12 +8,12 @@ const mailSender = require("../tils/Emails")
 
 exports.AdminSignUp = async(req, res) => {
     try{
-        const {fullname, email, password,brandname} = req.body
+        const {name, email, password,brandname} = req.body
         const salt = bcryptjs.genSaltSync(10);
         const hash = bcryptjs.hashSync(password, salt);
 
         const data = {
-            fullname,
+            name,
             email,
             password: hash,
             brandname,
@@ -25,7 +25,13 @@ exports.AdminSignUp = async(req, res) => {
              isAdmin:createUser.isAdmin},
               process.env.JWT_TOKEN,{expiresIn: "1d"})
               
-            createUser.token = myToken,
+            createUser.token = myToken
+            const checker = await AddAdmin.findOne({email});
+            if(checker){
+                res.status(400).json({
+                    message: "Email already taken.."
+                })
+            }else{
             createUser.save()
 
             const VerifyLink = `${req.protocol}://${req.get("host")}/api/adminVeri/${createUser._id}`
@@ -41,6 +47,7 @@ exports.AdminSignUp = async(req, res) => {
                 message: "User created",
                 data: createUser
              });
+            }
       } catch(err) {
             res.status(400).json({
             message: err.message

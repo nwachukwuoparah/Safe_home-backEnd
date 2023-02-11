@@ -10,10 +10,9 @@ router.post('/admin/:userId',IsAdminAuth,NewPro)
 
 router.delete('/admin/:userId/:productid', IsAdminAuth, DeleteFurni)
 
-router.patch('/admin/:userid/:productid', IsAdminAuth, UpdateFurni)
+router.patch('/admin/:userId/:id', IsAdminAuth, UpdateFurni)
 
  //router.post('/admin/:id/',IsAdminAuth,  function(req, res){
    // orderRouter})
-
 
 module.exports = router

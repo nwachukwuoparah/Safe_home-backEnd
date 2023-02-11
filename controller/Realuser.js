@@ -26,7 +26,7 @@ exports.signUpUser = async(req, res) => {
             createUser.token = myToken,
             createUser.save()
 
-            const VerifyLink = `${req.protocol}://safehome.onrender.com/#/verify/${createUser._id}`
+            const VerifyLink = `${req.protocol}://https://safehome.onrender.com/#/verify/${createUser._id}`
             const message = `Thank you for registering with us. Please click on this link ${VerifyLink} to verify your account`;
             mailSender({
             email: createUser.email,

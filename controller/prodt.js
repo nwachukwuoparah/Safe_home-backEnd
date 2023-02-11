@@ -15,10 +15,10 @@ exports.NewPro = asyncHandler (async (req, res) => {
             numReview: req.body.numReview,
             stockQuantity: req.body.stockQuantity,
             
-        }
+        },
         // const data = {title,description,image,price,rating,numReview,stockQuantity,cloudId}
-        const created = await Addfurni.create(fruniData);
-        console.log(created)
+         created = await Addfurni.create(fruniData);
+        // console.log(created)
         res.status(201).json({
             message: "New Furniture Added",
             data: created
@@ -94,7 +94,9 @@ exports.DeleteFurni =  async (req, res) => {
 
 exports.UpdateFurni = asyncHandler(async(req, res) => {
     try{
+        const result = await cloudinary.uploader.upload(req.files.image.tempFilePath)
         const id = req.params.id;
+        const productId = await Addfurni.findById(id)
         const newUpdate = {
             title:req.body.title,
             description:req.body.description,
@@ -105,22 +107,11 @@ exports.UpdateFurni = asyncHandler(async(req, res) => {
             numReview: req.body.numReview,
             stockQuantity: req.body.stockQuantity,
         }
-        const reviewFurni = await Addfurni.findByIdAndUpdate(id, newUpdate);
-        // res.status(201).json({
-        //     message: "update was sucessful",
-        //     // length: reviewFurni.length,
-        //     data: newUpdate
-        // });
-        if(! reviewFurni === 0) {
-            res.status(400).json({
-                message: "update is not succesfful",
-            })
-        } else {
+        const reviewFurni = await Addfurni.findByIdAndUpdate(productId, newUpdate);
             res.status(201).json({
                 message: "update was successful",
-                data: newUpdate
-            })
-        }
+                data: reviewFurni
+            });
     } catch (err) {
         res.status(400).json({
             message: err.message
