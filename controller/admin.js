@@ -84,7 +84,7 @@ exports.Adminlogin = async (req, res) => {
 }
 
 exports.AdminVerify = async (req, res) => {
-    try{    
+    try{
         const userid = req.params.userid
         const user = await AddAdmin.findById(userid)
         await AddAdmin.findByIdAndUpdate(

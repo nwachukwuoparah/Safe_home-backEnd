@@ -10,3 +10,5 @@ Router.route('/confirmAdmin/:userid').post(isAdminVerify)
 Router.route('/adminForget').post(Forgotpassword)
 Router.route('/adminChng/:id').post(passwordchange)
 module.exports = Router;
+
+
