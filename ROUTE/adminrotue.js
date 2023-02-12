@@ -3,7 +3,6 @@ const {IsAdminAuth} = require('../tils/authorization');
 
 const {NewPro,DeleteFurni,UpdateFurni,orderRouter} = require('../controller/prodt');
 
-
 const router = express.Router();
 
 router.post('/admin/:userId',IsAdminAuth,NewPro)

@@ -16,7 +16,6 @@ exports.NewPro = asyncHandler(async (req, res) => {
             stockQuantity: req.body.stockQuantity,
             brandName: req.body.brandName
         },
-
             // const data = {title,description,image,price,rating,numReview,stockQuantity,cloudId}
             created = await Addfurni.create(fruniData);
         // console.log(created)
