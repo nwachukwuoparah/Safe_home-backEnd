@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema ({
     },
     email: {
         type: String,
-        require: [true, "name is required"],
+        require: [true, "email is required"],
         unique: true
     },
     password: {
@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema ({
     },
     brandname: {
         type: String,
-        require: [true, "password is require"]
+        require: [true, "brandname is require"]
     },
     verify: { 
         type: Boolean,

@@ -35,7 +35,8 @@ exports.AdminSignUp = async (req, res) => {
             })
         } else {
             createUser.save()
-            const VerifyLink = `${req.protocol}://https://safehome.onrender.com/#/verify/${createUser._id}`
+            const userVerify = `${req.protocol}://${req.get("host")}/api/adminVerify/${createUser._id}`
+            const VerifyLink = `${req.protocol}://safehome.onrender.com/#/verify/${createUser._id}`
             const message = `Thank you for registering with us. Please click on this link ${VerifyLink} to verify`;
             mailSender({
                 email: createUser.email,
@@ -88,8 +89,8 @@ exports.Adminlogin = async (req, res) => {
 
 exports.AdminVerify = async (req, res) => {
     try {
-        const userid = req.params.userid
-        const user = await AddAdmin.findById(userid)
+        const adminId = req.params.Id
+        const user = await AddAdmin.findById(adminId)
         await AddAdmin.findByIdAndUpdate(
             user._id,
             {
@@ -99,6 +100,9 @@ exports.AdminVerify = async (req, res) => {
                 new: true
             }
         )
+        
+        // user.Verify = true,
+        // await user.save()
 
         res.status(200).json({
             message: "you have been verified"
@@ -114,6 +118,7 @@ exports.AdminVerify = async (req, res) => {
 exports.Forgotpassword = async (req, res) => {
     try {
         const { email } = req.body
+        console.log(req)
         const userEmail = await AddAdmin.findOne({ email })
         if (!userEmail) return res.status(404).json({ message: "No Email" })
         const myToken = jwt.sign({

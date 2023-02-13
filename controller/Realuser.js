@@ -79,6 +79,7 @@ exports.Forgotpassword = async (req, res) => {
     try {
         const { email } = req.body
         const userEmail = await realUser.findOne({ email })
+        console.log(email)
         if (!userEmail) return res.status(404).json({ message: "No Email" })
         const myToken = jwt.sign({
             id: userEmail._id,
