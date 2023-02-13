@@ -127,7 +127,7 @@ exports.Forgotpassword = async (req, res) => {
             IsAdmin: userEmail.isAdmin
         }, process.env.JWT_TOKEN, { expiresIn: "1m" })
 
-        const VerifyLink = `${req.protocol}://safehome.onrender.com/#/resetpassword/${userEmail._id}/${myToken}`
+        const VerifyLink = `${req.protocol}://safehome.onrender.com/#/resetpassword/${userEmail._id}ok `
         const message = `Use this link ${VerifyLink} to change your password`;
         mailSender({
             email: userEmail.email,
