@@ -8,39 +8,47 @@ const mailSender = require("../tils/Emails")
 
 exports.signUpUser = async (req, res) => {
     try {
-        const { fullname, email, password } = req.body
+        const { name, email, password, brandname } = req.body
         const salt = bcryptjs.genSaltSync(10);
         const hash = bcryptjs.hashSync(password, salt);
 
         const data = {
-            fullname,
+            name,
             email,
             password: hash,
+            brandname,
         }
         const createUser = await realUser(data)
         const myToken = jwt.sign({
             id: createUser._id,
             password: createUser.password,
-            IsAdmin: createUser.isAdmin
+            isAdmin: createUser.isAdmin
         },
             process.env.JWT_TOKEN, { expiresIn: "1d" })
 
-        createUser.token = myToken,
+        createUser.token = myToken
+        const checker = await realUser.findOne({ email });
+        if (checker) {
+            res.status(400).json({
+                message: "Email already taken.."
+            })
+        } else {
             createUser.save()
+            const userVerify = `${req.protocol}://${req.get("host")}/api/adminVerify/${createUser._id}`
+            const VerifyLink = `${req.protocol}://safehome.onrender.com/#/verify/${createUser._id}`
+            const message = `Thank you for registering with us. Please click on this link ${VerifyLink} to verify`;
+            mailSender({
+                email: createUser.email,
+                subject: "Kindly verify",
+                message,
+            });
 
-        const VerifyLink = `${req.protocol}://https://safehome.onrender.com/#/verify/${createUser._id}`
-        const message = `Thank you for registering with us. Please click on this link ${VerifyLink} to verify your account`;
-        mailSender({
-            email: createUser.email,
-            subject: "Kindly verify",
-            message,
-        });
 
-
-        res.status(201).json({
-            message: "User created",
-            data: createUser
-        });
+            res.status(201).json({
+                message: "User created",
+                data: createUser
+            });
+        }
     } catch (err) {
         res.status(400).json({
             message: err.message
@@ -48,30 +56,30 @@ exports.signUpUser = async (req, res) => {
     }
 }
 
-exports.UserVerify = async (req, res) => {
-    try {
-        const userid = req.params.userid
-        const user = await realUser.findById(userid)
-        await realUser.findByIdAndUpdate(
-            user._id,
-            {
-                verify: true
-            },
-            {
-                new: true
-            }
-        )
+// exports.UserVerify = async (req, res) => {
+//     try {
+//         const userid = req.params.userid
+//         const user = await realUser.findById(userid)
+//         await realUser.findByIdAndUpdate(
+//             user._id,
+//             {
+//                 verify: true
+//             },
+//             {
+//                 new: true
+//             }
+//         )
 
-        res.status(200).json({
-            message: "you have been verified"
-        })
+//         res.status(200).json({
+//             message: "you have been verified"
+//         })
 
-    } catch (err) {
-        res.status(400).json({
-            message: err.message
-        })
-    }
-}
+//     } catch (err) {
+//         res.status(400).json({
+//             message: err.message
+//         })
+//     }
+// }
 
 
 

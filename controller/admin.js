@@ -62,7 +62,7 @@ exports.Adminlogin = async (req, res) => {
         const { email } = req.body;
         const check = await AddAdmin.findOne({ email: email })
         if (!check) return res.status(404).json({
-            message: "Not found"
+            message: "Not a user"
         })
         const isPassword = await bcryptjs.compare(req.body.password, check.password)
         if (!isPassword) return res.status(404).json({ message: "Email or password incorrect" })
@@ -118,7 +118,6 @@ exports.AdminVerify = async (req, res) => {
 exports.Forgotpassword = async (req, res) => {
     try {
         const { email } = req.body
-        console.log(req)
         const userEmail = await AddAdmin.findOne({ email })
         if (!userEmail){ 
              res.status(404).json({ message: "No Email" })
