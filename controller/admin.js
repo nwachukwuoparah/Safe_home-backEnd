@@ -120,15 +120,17 @@ exports.Forgotpassword = async (req, res) => {
         const { email } = req.body
         console.log(req)
         const userEmail = await AddAdmin.findOne({ email })
-        if (!userEmail) return res.status(404).json({ message: "No Email" })
+        if (!userEmail){ 
+             res.status(404).json({ message: "No Email" })
+    }else{
         const myToken = jwt.sign({
             id: userEmail._id,
             IsAdmin: userEmail.isAdmin
         }, process.env.JWT_TOKEN, { expiresIn: "1m" })
 
-        const VerifyLink = `${req.protocol}://https://safehome.onrender.com/#/resetpassword/${userEmail._id}`
+        const VerifyLink = `${req.protocol}://safehome.onrender.com/#/resetpassword/${userEmail._id}/${myToken}`
         const message = `Use this link ${VerifyLink} to change your password`;
-        ({
+        mailSender({
             email: userEmail.email,
             subject: "Reset Pasword",
             message,
@@ -139,6 +141,7 @@ exports.Forgotpassword = async (req, res) => {
         })
 
         // console.log(userEmail);
+    }
     } catch (err) {
         res.status(400).json({
             message: err.message
