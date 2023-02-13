@@ -7,30 +7,6 @@ const cloudinary = require("../helper/cloudinary");
 const orderRouter = express.Router()
 
 
-// const orderproduct = asyncHandler (async (req, res) => {
-// try{
-//     const orderDat = {
-//             orderItems,
-//             shippingAddress,
-//             paymentMethod,
-//             paymentResult,
-//             taxprice,
-//             shippingPrice,
-//             itemPrice,
-//             totalPrice,
-//     })
-// }
-
-
-
-        
-            
-        
-       
-    
-     
-
-    
      //get order
 
      asyncHandler (async (req, res) => {
