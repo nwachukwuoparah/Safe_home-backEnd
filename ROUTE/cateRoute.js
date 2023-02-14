@@ -4,7 +4,7 @@ const commentRouter = express.Router()
 
 const {NewComment} = require('../controller/comment');
 
-commentRouter.post("/comment/:id",NewComment)
+commentRouter.post("/cate/:id",NewComment)
 
 module.exports = commentRouter;
 

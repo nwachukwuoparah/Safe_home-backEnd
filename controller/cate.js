@@ -1,6 +1,6 @@
 const express = require("express")
 const asyncHandler = require ("express-async-handler");
-const comment = require("../models/commentModel");
+const comment = require("../models/cate");
 const cloudinary = require("../helper/cloudinary")
 
 exports.NewComment = asyncHandler(async (req, res) => {
