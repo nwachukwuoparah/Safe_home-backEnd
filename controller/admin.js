@@ -195,3 +195,29 @@ exports.isAdminVerify = async (req, res) => {
         })
     }
 }
+
+exports.UpdateUsers = async (req, res) => {
+    try {
+        const result = await cloudinary.uploader.upload(req.files.image.tempFilePath)
+        const id = req.params.id;
+        const Id = await AddAdmin.findById(id)
+        const newUpdate = {
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,
+            image: result.secure_url,
+            cloudId: result.public_id,
+        }
+        const Update = await Addfurni.findByIdAndUpdate(Id, newUpdate);
+        res.status(201).json({
+            message: "update was successful",
+            data: Update
+        });
+    } catch (err) {
+        res.status(400).json({
+            message: err.message
+        });
+    }
+}
+
+

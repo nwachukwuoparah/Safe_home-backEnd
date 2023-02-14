@@ -10,6 +10,8 @@ const commentRouter= require("./ROUTE/addAdmin")
 const importData = require("./Dataimport")
 const {errorHandler, notfound} = require("./middleware/errorhand");
 const orderRouter = require("./ROUTE/orderRoute")
+const cateRouter = require("./ROUTE/CateRoute")
+const router = require("./ROUTE/rating")
  const cors = require("cors")
  const fileUpload = require('express-fileupload');
 
@@ -40,7 +42,8 @@ app.use('/api', adminRoute);
 app.use("/api", user)
 app.use("/api", commentRouter)
 app.use("/api/orders",orderRouter)
-
+app.use("/api",router)
+app.use("/api",cateRouter)
 
  
 

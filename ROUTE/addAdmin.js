@@ -1,5 +1,5 @@
 const express = require("express")
-const { Adminlogin, AdminSignUp, AdminVerify, Forgotpassword, passwordchange,} = require("../controller/admin")
+const { Adminlogin, AdminSignUp, AdminVerify, Forgotpassword, passwordchange,UpdateUsers} = require("../controller/admin")
 
 const Router = express.Router();
 
@@ -9,6 +9,7 @@ Router.route('/Verify/:Id').post(AdminVerify)
 Router.route('/confirmAdmin/:Id').post(AdminVerify)
 Router.route('/Forget').post(Forgotpassword)
 Router.route('/Chng/:id').post(passwordchange)
+Router.route("/update/:id",UpdateUsers)
 //Router.route('/adminChng/:id/:token').post(passwordchange)
 module.exports = Router;
 
