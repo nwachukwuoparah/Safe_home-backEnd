@@ -2,7 +2,7 @@ require("dotenv").config();
 const dotenv = require("dotenv")
 const express = require("express")
 dotenv.config({path: "./CONFIG/config.env"})
-const adminRoute = require('./ROUTE/adminrotue');
+const adminRoute = require('./ROUTE/product');
 const user = require ('./ROUTE/UserRoute')
 const Auth = require('./ROUTE/Adduser')
 const Authen = require("./ROUTE/addAdmin")

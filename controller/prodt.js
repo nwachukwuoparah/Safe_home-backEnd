@@ -120,33 +120,104 @@ exports.UpdateFurni = asyncHandler(async (req, res) => {
 }
 )
 
-// get random product
-// exports.randomproduct= asyncHandler(async(req, res) => {
-//     try{
-//         const product= await AddUser.find().limit(-1).skip
-//         const random_item = product.sort().next
-//         return
-//     } catch(err){
-//         res.status(200).send({
-//             success: true,
-//             message: "successful",
-//             // success:randomproduct,
-//             data:random_item
-//         })
-
-//     }
-// })
-
-exports.randomproduct = asyncHandler(async (req, res) => {
+exports.categoriesForChair = asyncHandler(async (req, res) => {
     try {
-        function random_item(items) {
-            return items[Math.floor(Math.random() * items.length)];
-        }
-        var items = [];
-        console.log(random_item(items));
-    } catch (err) {
-        res.status(201).json({
-            message: err.message
-        })
+        const chair = await Addfurni.find().where({"categories": "chairs"})
+        // console.log(allFurni)
+            res.status(201).json({
+                message: "Here are all the categories of chairs" + chair.length,
+                data: chair
+            });
+
+    } catch (e) {
+        res.status(400).json({
+            message: e.message
+        });
     }
-})
+}
+)
+
+exports.categoriesForbeds = asyncHandler(async (req, res) => {
+    try {
+    const bed = await Addfurni.find().where({"categories": "beds"})
+        // console.log(allFurni)
+            res.status(201).json({
+                message: "Here are all the categories of bed "  + bed.length,
+                data: bed
+            });
+
+    } catch (e) {
+        res.status(400).json({
+            message: e.message
+        });
+    }
+}
+)
+
+exports.categoriesForCabinets = asyncHandler(async (req, res) => {
+    try {
+    const cabinets = await Addfurni.find().where({"categories": "cabinets"})
+        // console.log(allFurni)
+            res.status(201).json({
+                message: "Here are all the categories of bed "  + cabinets.length,
+                data: cabinets
+            });
+
+    } catch (e) {
+        res.status(400).json({
+            message: e.message
+        });
+    }
+}
+)
+
+exports.categoriesForChests = asyncHandler(async (req, res) => {
+    try {
+    const chests = await Addfurni.find().where({"categories": "chests"})
+        // console.log(allFurni)
+            res.status(201).json({
+                message: "Here are all the categories of chests "  + chests.length,
+                data: chests
+            });
+
+    } catch (e) {
+        res.status(400).json({
+            message: e.message
+        });
+    }
+}
+)
+
+exports.categoriesFordesks = asyncHandler(async (req, res) => {
+    try {
+    const desks = await Addfurni.find().where({"categories": "desks"})
+        // console.log(allFurni)
+            res.status(201).json({
+                message: "Here are all the categories of desks "  + desks.length,
+                data: desks
+            });
+
+    } catch (e) {
+        res.status(400).json({
+            message: e.message
+        });
+    }
+}
+)
+
+exports.categoriesFortables = asyncHandler(async (req, res) => {
+    try {
+    const tables = await Addfurni.find().where({"categories": "tables"})
+        // console.log(allFurni)
+            res.status(201).json({
+                message: "Here are all the categories of tables "  + tables.length,
+                data: tables
+            });
+
+    } catch (e) {
+        res.status(400).json({
+            message: e.message
+        });
+    }
+}
+)
