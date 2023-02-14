@@ -1,43 +1,27 @@
-const express = require("express");
+const express = require("express")
 const asyncHandler = require ("express-async-handler");
-const Cates = require("../models/CateModle");
+const comment = require("../models/CateModle");
+const cloudinary = require("../helper/cloudinary")
 
-exports.NewCates = asyncHandler (async (req, res) => {
-    try{
-    const Id = req.params.catnames;
-    const {chairs,beds,cabinets,chests,desks,tables} = req.body.catnames;
-    const cateProduct = {
-        chairs,
-        beds,
-        cabinets,
-        chests, 
-        desks,
-        tables,
-        }
-        const categories = await Cates.create(cateProduct);
+exports.NewComment = asyncHandler(async (req, res) => {
+    try {
+        const id = req.params.id;
+        const result = await cloudinary.uploader.upload(req.files.image.tempFilePath)
+        const commentAdd = {
+            text: req.body.text,
+            image: result.secure_url,
+            cloudId: result.public_id,
+        },
+            created = await comment.create(commentAdd);
         res.status(201).json({
-            message: "Categories successful",
-            data: categories
+            message: "Comment is added successfully",
+            data: created
         });
-    }catch(e){
+
+    } catch (e) {
         res.status(400).json({
             message: e.message
         });
     }
 }
 )
-
-exports.getAllCates = asyncHandler  (async(req, res) => {
-    try{
-        const allCates = await Cates.find();
-        res.status(201).json({
-            message: "Categories was gotten",
-            length: allCates.length,
-            data: allCates,
-        })
-    } catch(error) {
-        res.status(404).json({
-            message: error.message
-        })
-    }
-})

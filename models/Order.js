@@ -10,7 +10,7 @@ const orderSchema = new mongoose.Schema ({
  
     },
     phoneNumber: {
-        type: Number,
+        type: String,
         required: [true, "phoneNumber is required"],
     },
     customerName: {
@@ -23,9 +23,17 @@ const orderSchema = new mongoose.Schema ({
         required: [true, "customerEmail is required"],
         default: 0.0,
     },
+    delivery: {
+        type: Boolean,
+        default: false,
+    },
+    delivered: {
+        type: Boolean,
+        default: false, 
+    },
     product: {
         type: Array,
-        required: [true, "customerEmail is required"],
+        required: [true, "product is required"],
     },
    },
    

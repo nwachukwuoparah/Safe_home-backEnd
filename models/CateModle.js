@@ -35,3 +35,4 @@ const cateSchema = new mongoose.Schema ({
 
    const cates = mongoose.model("cates", cateSchema)
    module.exports = cates;
+   

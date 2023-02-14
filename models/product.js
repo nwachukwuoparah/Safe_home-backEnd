@@ -20,7 +20,7 @@ const productSchema = mongoose.Schema({
     },
     rating: {
       type: Number,
-      required: [true, "rating is required"],
+      default: 0, 
     },
     stockQuantity: {
       type: String,
@@ -29,34 +29,7 @@ const productSchema = mongoose.Schema({
     brandName: {
       type: String,
       required: [true, "brandName is required"]
-    },
-    
-    categories:[{
-      beds: {
-        type: String,
-        default: "beds"
-      },
-      cabinets: {
-        type: String,
-        default: "cabinets"
-      },
-      chairs: {
-        type: String,
-        default: "chairs"
-      },
-      chests: {
-        type: String,
-        default: "chests"
-      },
-      desks: {
-        type: String,
-        default: "desks"
-      },
-      tables: {
-        type: String,
-        default: "tables"
-      },
-   }]
+    }, 
   },
   {
     timestamps: true
