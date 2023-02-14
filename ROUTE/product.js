@@ -5,7 +5,6 @@ const {
   NewPro,
   DeleteFurni,
   UpdateFurni,
-  orderRouter,
   categoriesForChair,
   categoriesForbeds,
   categoriesForChests,
