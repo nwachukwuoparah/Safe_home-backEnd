@@ -6,6 +6,7 @@ const adminRoute = require('./ROUTE/adminrotue');
 const user = require ('./ROUTE/UserRoute')
 const Auth = require('./ROUTE/Adduser')
 const Authen = require("./ROUTE/addAdmin")
+const commentRouter= require("./ROUTE/addAdmin")
 const importData = require("./Dataimport")
 const {errorHandler, notfound} = require("./middleware/errorhand");
  const orderRouter= require("./controller/orderpro");
@@ -37,7 +38,7 @@ app.use('/api', Auth);
 app.use("/api", Authen)
 app.use('/api', adminRoute);
 app.use("/api", user)
-
+app.use("/api", commentRouter)
 app.use("/api/orders",orderRouter)
 
 
