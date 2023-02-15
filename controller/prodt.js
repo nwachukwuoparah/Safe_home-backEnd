@@ -53,7 +53,7 @@ exports.GetallFurni = asyncHandler(async (req, res) => {
 exports.GetSingle = asyncHandler(async (req, res) => {
     try {
         const proid = req.params.proid;
-        const allFurni = await Addfurni.findOne({ proid });
+        const allFurni = await Addfurni.findById(proid);
         // console.log(allFurni)
         if (allFurni) {
             res.status(201).json({
@@ -79,7 +79,7 @@ exports.GetSingle = asyncHandler(async (req, res) => {
 exports.DeleteFurni = async (req, res) => {
     try {
         const productid = req.params.productid
-        await Addfurni.findByIdAndDelete(productid);
+        await Addfurni.deleteOne(productid);
         res.status(204).json({
             message: "Deleted",
         });

@@ -6,7 +6,7 @@ const router = express.Router();
 
 
 router.route('/user').get(GetallFurni)
-router.route('/get/:iproid').get(GetSingle)
+router.route('/get/:proid').get(GetSingle)
 // router.route("/:id/review").post(reviewPro)
 module.exports = router
 
