@@ -6,8 +6,6 @@ const {newRating} = require('../controller/rating');
 //const {realAdmin} = require("../helper/auth")
 
 
-
-
 router.patch("/rate/:id",newRating)
 //router.post("/rate/:id",newRating)
 

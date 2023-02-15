@@ -79,8 +79,8 @@ exports.GetSingle = asyncHandler(async (req, res) => {
 exports.DeleteFurni = async (req, res) => {
     try {
         const productid = req.params.productid
-        await Addfurni.deleteOne(productid);
-        res.status(204).json({
+        await Addfurni.deleteOne({productid});
+        res.status(200).json({
             message: "Deleted",
         });
 
