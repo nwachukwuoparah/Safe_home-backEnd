@@ -14,11 +14,13 @@ const {
 } = require('../controller/prodt');
 const router = express.Router();
 
-router.post('/admin/:userId', IsAdminAuth, NewPro)
-router.delete('/admin/:userId/:productid', IsAdminAuth, DeleteFurni)
-router.patch('/admin/:userId/:id', IsAdminAuth, UpdateFurni)
+router.post('/admin/:adminId', IsAdminAuth, NewPro)
+router.delete('/admin/:adminId/:productid', IsAdminAuth, DeleteFurni)
+router.patch('/admin/:adminId/:id', IsAdminAuth, UpdateFurni)
 
 //router.post('/admin/:id/',IsAdminAuth,  function(req, res){
 // orderRouter})
 
 module.exports = router;
+
+

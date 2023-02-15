@@ -52,8 +52,8 @@ exports.GetallFurni = asyncHandler(async (req, res) => {
 //asyncHandler(
 exports.GetSingle = asyncHandler(async (req, res) => {
     try {
-        const id = req.params.id;
-        const allFurni = await Addfurni.findOne({ id });
+        const proid = req.params.proid;
+        const allFurni = await Addfurni.findOne({ proid });
         // console.log(allFurni)
         if (allFurni) {
             res.status(201).json({

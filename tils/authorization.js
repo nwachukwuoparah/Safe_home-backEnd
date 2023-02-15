@@ -6,7 +6,8 @@ const jwt = require('jsonwebtoken');
 
 const isSignIn = async (req, res, next) => {
        const userId = req.params.userId;
-       const user = await User.findById(userId);
+       const user = await User.findOne(userId);
+       console.log(user)
        if(!user){
         res.status(404).json({
             message: "You are not authorized.."
@@ -40,6 +41,7 @@ const IsAdminAuth = (req, res, next)=>{
         }
     })
 }
+
 
 module.exports = {IsAdminAuth}
 
