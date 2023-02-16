@@ -9,7 +9,6 @@ Router.route('/Verify/:Id').post(AdminVerify)
 Router.route('/confirmAdmin/:Id').post(AdminVerify)
 Router.route('/Forget').post(Forgotpassword)
 Router.route('/Chng/:id').post(passwordchange)
-Router.route("/update/:id",UpdateUsers)
-//Router.route('/adminChng/:id/:token').post(passwordchange)
+Router.route("/update/:userid").patch(UpdateUsers)
+// Router.route('/adminChng/:id/:token').post(passwordchange)
 module.exports = Router;
-

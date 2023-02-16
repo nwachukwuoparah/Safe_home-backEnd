@@ -4,7 +4,7 @@ dotenv.config({ path: "../CONFIG/config.env" })
 const bcryptjs = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const mailSender = require("../tils/Emails")
-
+const cloudinary = require("../helper/cloudinary")
 
 exports.AdminSignUp = async (req, res) => {
     try {
@@ -198,17 +198,19 @@ exports.isAdminVerify = async (req, res) => {
 
 exports.UpdateUsers = async (req, res) => {
     try {
+        const id = req.params.userid;
+        const userid = await AddAdmin.findById(id)
         const result = await cloudinary.uploader.upload(req.files.image.tempFilePath)
-        const id = req.params.id;
-        const Id = await AddAdmin.findById(id)
+        const { name, email, password, brandname,image} = req.body
         const newUpdate = {
             name: req.body.name,
             email: req.body.email,
             password: req.body.password,
             image: result.secure_url,
+            brandname:req.body.brandname, 
             cloudId: result.public_id,
         }
-        const Update = await Addfurni.findByIdAndUpdate(Id, newUpdate);
+        const Update = await AddAdmin.findByIdAndUpdate(id, newUpdate);
         res.status(201).json({
             message: "update was successful",
             data: Update
@@ -218,6 +220,10 @@ exports.UpdateUsers = async (req, res) => {
             message: err.message
         });
     }
-}
+} 
+
+
+
+
 
 
