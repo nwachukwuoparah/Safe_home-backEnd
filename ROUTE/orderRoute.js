@@ -11,5 +11,5 @@ orderRouter.delete("/deleteorder/:adminId/:orderId",deleteOrder)
 orderRouter.get("/order/:Id",getOneOrder)
 orderRouter.post("/ordered/:orderId", Delivered)
 
-module.exports = orderRouter;.
+module.exports = orderRouter;
 
