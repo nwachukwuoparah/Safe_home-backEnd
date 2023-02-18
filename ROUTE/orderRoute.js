@@ -2,13 +2,14 @@ const express = require("express");
 
 const orderRouter = express.Router()
 
-const {newOrder,getOrder,deleteOrder,getOneOrder,verifyOrder} = require('../controller/orderpro');
+const {newOrder,getOrder,deleteOrder,getOneOrder,verifyOrder, Delivered} = require('../controller/orderpro');
 //const {realAdmin} = require("../helper/auth")
 
-orderRouter.post("/order/:userId",newOrder)
-orderRouter.get("/order/:adminId",getOrder)
-orderRouter.delete("/order/:adminId/:orderId",deleteOrder)
-orderRouter.get("/sorder/:Id",getOneOrder)
-//orderRouter.post("/order/:orderId",verifyOrder)
+orderRouter.post("/neworder/:userId",newOrder)
+orderRouter.get("/allorder/:adminId",getOrder)
+orderRouter.delete("/deleteorder/:adminId/:orderId",deleteOrder)
+orderRouter.get("/order/:Id",getOneOrder)
+orderRouter.post("/ordered/:orderId", Delivered)
 
-module.exports = orderRouter;
+module.exports = orderRouter;.
+

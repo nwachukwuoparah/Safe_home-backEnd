@@ -10,6 +10,7 @@ const commentRouter= require("./ROUTE/commentRoute")
 const importData = require("./Dataimport")
 const {errorHandler, notfound} = require("./middleware/errorhand");
 const orderRouter = require("./ROUTE/orderRoute")
+const stockRouter = require("./ROUTE/InStock")
 //const cateRouter = require("./ROUTE/CateRoute")
 const router = require("./ROUTE/rating")
  const cors = require("cors")
@@ -43,6 +44,7 @@ app.use("/api", user)
 app.use("/api", commentRouter)
 app.use("/api",orderRouter)
 app.use("/api",router)
+app.use("/api",stockRouter)
 //app.use("/api",cateRouter)
 
 

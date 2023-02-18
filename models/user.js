@@ -18,6 +18,14 @@ const userSchema = new mongoose.Schema ({
         type: String,
         require: [true, "brandname is require"]
     },
+    image: {
+        type: String,
+        require: [true, "image is require"]
+    },
+    cloudId: {
+        type: String,
+        require: [true, "cloudId is require"]
+    },
     verify: { 
         type: Boolean,
         default: false

@@ -105,7 +105,7 @@ exports.AdminVerify = async (req, res) => {
         // await user.save()
 
         res.status(200).json({
-            message: "you have been verified"
+            message: `thanks ${user.name} for verifying your account`
         })
 
     } catch (err) {
@@ -201,7 +201,7 @@ exports.UpdateUsers = async (req, res) => {
         const id = req.params.userid;
         const userid = await AddAdmin.findById(id)
         const result = await cloudinary.uploader.upload(req.files.image.tempFilePath)
-        const { name, email, password, brandname,image} = req.body
+        const { name, email, password, brandname} = req.body
         const newUpdate = {
             name: req.body.name,
             email: req.body.email,

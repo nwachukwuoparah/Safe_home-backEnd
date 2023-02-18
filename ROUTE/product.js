@@ -2,16 +2,7 @@ const express = require('express');
 const { IsAdminAuth } = require('../tils/authorization');
 
 const {
-  NewPro,
-  DeleteFurni,
-  UpdateFurni,
-  categoriesForChair,
-  categoriesForbeds,
-  categoriesForChests,
-  categoriesForCabinets,
-  categoriesFordesks,
-  categoriesFortables
-} = require('../controller/prodt');
+  NewPro,DeleteFurni,UpdateFurni} = require('../controller/prodt');
 const router = express.Router();
 
 router.post('/admin/:adminId', IsAdminAuth, NewPro)
@@ -22,5 +13,4 @@ router.patch('/admin/:adminId/:id', IsAdminAuth, UpdateFurni)
 // orderRouter})
 
 module.exports = router;
-
 

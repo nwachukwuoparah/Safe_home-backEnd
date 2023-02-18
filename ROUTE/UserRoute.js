@@ -1,6 +1,6 @@
 const express = require('express')
 const {GetallFurni,GetSingle} = require('../controller/prodt')
-const {reviewPro} = require("../middleware/errorhand")
+// const {reviewPro} = require("../middleware/errorhand")
 
 const router = express.Router();
 

@@ -2,6 +2,7 @@ const express = require("express");
 const asyncHandler = require ("express-async-handler");
 const Order = require("../models/Order");
 
+
 exports.newOrder = asyncHandler (async (req, res) => {
     try{
     const Id = req.params.userId;
@@ -75,12 +76,12 @@ exports.deleteOrder = asyncHandler(async(req,res) => {
 
 exports.Delivered = async (req, res) => {
     try {
-        const proid = req.params.proid
-        const product = await Order.findById(proid)
+        const orderid = req.params.orderId
+        const orderId = await Order.findById(orderid)
         await Order.findByIdAndUpdate(
-            pro._id,
+            orderId._id,
             {
-                true: true
+                delivered: true
             },
             {
                 new: true

@@ -7,7 +7,6 @@ const jwt = require('jsonwebtoken');
 const isSignIn = async (req, res, next) => {
        const userId = req.params.userId;
        const user = await User.findOne(userId);
-       console.log(user)
        if(!user){
         res.status(404).json({
             message: "You are not authorized.."
@@ -34,7 +33,7 @@ const isSignIn = async (req, res, next) => {
 const IsAdminAuth = (req, res, next)=>{
     isSignIn(req, res, ()=>{
         // console.log("lookig", req.user);
-        if(req.user.IsAdmin){
+        if(req.user.isAdmin){
             next()
         }else{
             res.status(404).json({message: "You are not an admin"})
