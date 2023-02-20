@@ -8,7 +8,7 @@ const {newOrder,getOrder,deleteOrder,getOneOrder,verifyOrder, Delivered} = requi
 orderRouter.post("/neworder/:userId",newOrder)
 orderRouter.get("/allorder/:adminId",getOrder)
 orderRouter.delete("/deleteorder/:adminId/:orderId",deleteOrder)
-orderRouter.get("/order/:orderId/:userId",getOneOrder)
+orderRouter.get("/order/:orderId",getOneOrder)
 orderRouter.post("/ordered/:orderId", Delivered)
 
 module.exports = orderRouter;
