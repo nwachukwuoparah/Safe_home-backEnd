@@ -41,6 +41,17 @@ const IsAdminAuth = (req, res, next)=>{
     })
 }
 
+const IsSuperAdminAuth = (req, res, next)=>{
+    isSignIn(req, res, ()=>{
+        // console.log("lookig", req.user);
+        if(req.user.isSuperAdmin){
+            next()
+        }else{
+            res.status(404).json({message: "You are not a superAdmin"})
+        }
+    })
+}
 
-module.exports = {IsAdminAuth}
+
+module.exports = {IsAdminAuth, IsSuperAdminAuth}
 

@@ -23,6 +23,7 @@ exports.signUpUser = async (req, res) => {
             id: createUser._id,
             password: createUser.password,
             isAdmin: createUser.isAdmin
+            //isSuperAdmin: createUser.isSuperAdmin
         },
             process.env.JWT_TOKEN, { expiresIn: "1d" })
 
@@ -92,6 +93,7 @@ exports.Forgotpassword = async (req, res) => {
         const myToken = jwt.sign({
             id: userEmail._id,
             IsAdmin: userEmail.isAdmin
+            //isSuperAdmin: createUser.isSuperAdmin
         }, process.env.JWTTOKEN, { expiresIn: "1m" })
 
         const VerifyLink = `${req.protocol}://https://safehome.onrender.com/#/resetpassword/${userEmail._id}`

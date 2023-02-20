@@ -48,12 +48,18 @@ exports.getOrder = asyncHandler  (async(req, res) => {
 
 exports.getOneOrder = asyncHandler(async(req,res) => {
     try{
-        const Id = req.params.Id;
-       const order = await Order.findById(Id) 
+        const orderId = req.params.orderId;
+       const order = await Order.findById(orderId) 
+       if(order.length === 0){ 
         res.status(200).json({
-            message: "Single Order was successful",
+            message: `there no no current order with this ${id}`,
             data: order
         })
+    } else{
+        res.status(200).json({ 
+            data: order
+        })
+    }
     }catch(error){
         res.status(401).json({
             message: error.message

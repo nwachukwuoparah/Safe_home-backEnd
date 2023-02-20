@@ -24,6 +24,7 @@ exports.AdminSignUp = async (req, res) => {
             id: createUser._id,
             password: createUser.password,
             isAdmin: createUser.isAdmin
+            //isSuperAdmin: createUser.isSuperAdmin,
         },
             process.env.JWT_TOKEN, { expiresIn: "1d" })
 
@@ -70,7 +71,8 @@ exports.Adminlogin = async (req, res) => {
         const myToken = jwt.sign({
             id: check._id,
             password: check.password,
-            IsAdmin: check.isAdmin
+            IsAdmin: check.isAdmin,
+            //isSuperAdmin: createUser.isSuperAdmin,
         }, process.env.JWT_TOKEN, { expiresIn: "1d" })
 
         check.token = myToken
@@ -124,7 +126,8 @@ exports.Forgotpassword = async (req, res) => {
     }else{
         const myToken = jwt.sign({
             id: userEmail._id,
-            IsAdmin: userEmail.isAdmin
+            IsAdmin: userEmail.isAdmin,
+            //isSuperAdmin: createUser.isSuperAdmin
         }, process.env.JWT_TOKEN, { expiresIn: "1m" })
 
         const VerifyLink = `${req.protocol}://safehome.onrender.com/#/resetpassword/${userEmail._id}`

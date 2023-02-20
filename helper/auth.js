@@ -44,6 +44,18 @@ exports.isAdmin = (req,res,next)=>{
     })
 };
 
+exports.isSuperAdmin= (req,res,next)=>{
+    checkUser(req,res,()=>{
+        if(req.user.isSuperAdmin){
+            next()
+        }else{
+            res.status(400).json({
+                message: "you are not authorized"
+            })
+        }
+    })
+};
+
 exports.isUser = (req,res,next)=>{
     checkUser(req,res,()=>{
         if(!req.user.isAdmin){
