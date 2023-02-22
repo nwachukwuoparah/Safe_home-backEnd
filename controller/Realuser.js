@@ -18,13 +18,12 @@ exports.signUpUser = async (req, res) => {
             password: hash,
             brandname,
         }
-        const createUser = await realUser(data)
+        const createUser = new realUser(data)
         const myToken = jwt.sign({
             id: createUser._id,
             password: createUser.password,
-            isAdmin: createUser.isAdmin
-            //isSuperAdmin: createUser.isSuperAdmin
-        },
+            IsAdmin: createUser.isAdmin
+            },
             process.env.JWT_TOKEN, { expiresIn: "1d" })
 
         createUser.token = myToken
@@ -33,9 +32,8 @@ exports.signUpUser = async (req, res) => {
             res.status(400).json({
                 message: "Email already taken.."
             })
-        } else {
-            createUser.save()
-            const userVerify = `${req.protocol}://${req.get("host")}/api/adminVerify/${createUser._id}`
+        } else { 
+            await createUser.save()
             const VerifyLink = `${req.protocol}://safehome.onrender.com/#/verify/${createUser._id}`
             const message = `Thank you for registering with us. Please click on this link ${VerifyLink} to verify`;
             mailSender({
@@ -88,12 +86,11 @@ exports.Forgotpassword = async (req, res) => {
     try {
         const { email } = req.body
         const userEmail = await realUser.findOne({ email })
-        console.log(email)
+        console.log(userEmail)
         if (!userEmail) return res.status(404).json({ message: "No Email" })
         const myToken = jwt.sign({
             id: userEmail._id,
             IsAdmin: userEmail.isAdmin
-            //isSuperAdmin: createUser.isSuperAdmin
         }, process.env.JWTTOKEN, { expiresIn: "1m" })
 
         const VerifyLink = `${req.protocol}://https://safehome.onrender.com/#/resetpassword/${userEmail._id}`

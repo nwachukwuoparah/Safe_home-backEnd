@@ -44,7 +44,7 @@ exports.isAdmin = (req,res,next)=>{
     })
 };
 
-exports.SuperAdmin= (req,res,next)=>{
+exports.isSuperAdmin= (req,res,next)=>{
     checkUser(req,res,()=>{
         if(req.user.isSuperAdmin){
             next()
@@ -70,4 +70,4 @@ exports.isUser = (req,res,next)=>{
 
 
 
-module.exports = isAdmin;
+module.exports = isAdmin,isSuperAdmin;

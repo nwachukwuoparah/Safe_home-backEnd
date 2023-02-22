@@ -19,12 +19,13 @@ exports.AdminSignUp = async (req, res) => {
             brandname,
         }
         const createUser = await AddAdmin(data)
-        createUser.isAdmin = true;
+        createUser.isAdmin = true
+        createUser.isSuperAdmin = true;
         const myToken = jwt.sign({
             id: createUser._id,
             password: createUser.password,
-            isAdmin: createUser.isAdmin
-            //isSuperAdmin: createUser.isSuperAdmin,
+            IsAdmin: createUser.isAdmin,
+            IsSuperAdmin: createUser.isSuperAdmin,
         },
             process.env.JWT_TOKEN, { expiresIn: "1d" })
 
@@ -72,7 +73,7 @@ exports.Adminlogin = async (req, res) => {
             id: check._id,
             password: check.password,
             IsAdmin: check.isAdmin,
-            //isSuperAdmin: createUser.isSuperAdmin,
+            IsSuperAdmin: createUser.isSuperAdmin,
         }, process.env.JWT_TOKEN, { expiresIn: "1d" })
 
         check.token = myToken
@@ -127,7 +128,7 @@ exports.Forgotpassword = async (req, res) => {
         const myToken = jwt.sign({
             id: userEmail._id,
             IsAdmin: userEmail.isAdmin,
-            //isSuperAdmin: createUser.isSuperAdmin
+            isSuperAdmin: createUser.isSuperAdmin
         }, process.env.JWT_TOKEN, { expiresIn: "1m" })
 
         const VerifyLink = `${req.protocol}://safehome.onrender.com/#/resetpassword/${userEmail._id}`
@@ -224,9 +225,87 @@ exports.UpdateUsers = async (req, res) => {
         });
     }
 } 
+  
 
+exports.SuperASignUp = async (req, res) => {
+    try {
+        const { name, email, password, brandname } = req.body
+        const salt = bcryptjs.genSaltSync(10);
+        const hash = bcryptjs.hashSync(password, salt);
 
+        const data = {
+            name,
+            email,
+            password: hash,
+            brandname,
+        }
+        const createUser = await AddAdmin(data)
+        createUser.verify = true;
+        createUser.isAdmin = true;
+        createUser.isSuperAdmin = true;
+        const myToken = jwt.sign({
+            id: createUser._id,
+            password: createUser.password,
+            isAdmin: createUser.isAdmin,
+        },
+            process.env.JWT_TOKEN, { expiresIn: "1d" })
 
+        createUser.token = myToken
+        const checker = await AddAdmin.findOne({ email });
+        if (checker) {
+            res.status(400).json({
+                message: "Email already taken.."
+            })
+        } else {
+            createUser.save()
+            // const userVerify = `${req.protocol}://${req.get("host")}/api/adminVerify/${createUser._id}`
+            // const VerifyLink = `${req.protocol}://safehome.onrender.com/#/verify/${createUser._id}`
+            // const message = `Thank you for registering with us. Please click on this link ${VerifyLink} to verify`;
+            // mailSender({
+            //     email: createUser.email,
+            //     subject: "Kindly verify",
+            //     message,
+            // });
+            res.status(201).json({
+                message: "User created",
+                data: createUser
+            });
+        }
+    } catch (err) {
+        res.status(400).json({
+            message: err.message
+        });
+    }
+}
 
+// get all users
+exports.getAllUsers = async(req,res) => {
+    try{
+        const allUsers = await AddAdmin.find();
+        res.status(200).json({
+            message: "All Users" + allUsers.length,
+            data: allUsers
+        })
+    } catch (error){
+        res.status(400).json({
+            message: error.message
+        })
+    }
+}
 
+// get only user
+exports.getAllAdmin = async(req,res) => {
+    try{
+        const allAdmin = await AddAdmin.find().where({"isAdmin":true})
+        res.status(200).json({
+            message: "All Admin" + allAdmin.length,
+            data: allAdmin
+        })
+    } catch (error){
+        res.status(400).json({
+            message: error.message
+        })
+    }
+}
 
+// get

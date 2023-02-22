@@ -23,8 +23,8 @@ const productSchema = mongoose.Schema({
     default: 0,
   },
   categories: {
-    type: String,
-    required: [true, "stockQuantity is required"]
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "cates",
   },
   stockQuantity: {
     type: String,

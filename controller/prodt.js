@@ -1,9 +1,12 @@
 const Addfurni = require('../models/product')
 const asyncHandler = require("express-async-handler");
+const Cat = require("../models/CateModle")
 const cloudinary = require("../helper/cloudinary");
 
-exports.NewPro = asyncHandler(async (req, res) => {
+exports.NewPro = async (req, res) => {
     try {
+        const cate = req.params.category
+        const theCat = await Cat.findById(cate)
         const result = await cloudinary.uploader.upload(req.files.image.tempFilePath)
         const fruniData = {
             title: req.body.title,
@@ -12,16 +15,21 @@ exports.NewPro = asyncHandler(async (req, res) => {
             cloudId: result.public_id,
             price: req.body.price,
             rating: req.body.rating,
-            categories: req.body.categories,
+            // categories: req.body.categories,
             stockQuantity: req.body.stockQuantity,
             brandName: req.body.brandName
-        },
+        }
             // const data = {title,description,image,price,rating,numReview,stockQuantity,cloudId}
-            created = await Addfurni.create(fruniData);
+        const creater = await Addfurni(fruniData);
+
+        creater.categories = theCat;
+        creater.save();
+        theCat.products.push(creater)
+        theCat.save();
         // console.log(created)
         res.status(201).json({
             message: "New Furniture Added",
-            data: created
+            // data: created
         });
 
     } catch (e) {
@@ -30,7 +38,7 @@ exports.NewPro = asyncHandler(async (req, res) => {
         });
     }
 }
-)
+
 
 exports.GetallFurni = asyncHandler(async (req, res) => {
     try {

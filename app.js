@@ -11,8 +11,9 @@ const importData = require("./Dataimport")
 const {errorHandler, notfound} = require("./middleware/errorhand");
 const orderRouter = require("./ROUTE/orderRoute")
 const stockRouter = require("./ROUTE/InStock")
-//const cateRouter = require("./ROUTE/CateRoute")
+const cateRouter = require("./ROUTE/categoryRoute")
 const router = require("./ROUTE/rating")
+const superRoutes = require('./ROUTE/superAdmin')
  const cors = require("cors")
  const fileUpload = require('express-fileupload');
 
@@ -45,7 +46,8 @@ app.use("/api", commentRouter)
 app.use("/api",orderRouter)
 app.use("/api",router)
 app.use("/api",stockRouter)
-//app.use("/api",cateRouter)
+app.use("/api",cateRouter)
+app.use("/api", superRoutes)
 
 
  
