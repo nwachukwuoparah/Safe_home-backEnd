@@ -73,7 +73,7 @@ exports.Adminlogin = async (req, res) => {
             id: check._id,
             password: check.password,
             IsAdmin: check.isAdmin,
-            IsSuperAdmin: createUser.isSuperAdmin,
+            // IsSuperAdmin: createUser.isSuperAdmin,
         }, process.env.JWT_TOKEN, { expiresIn: "1d" })
 
         check.token = myToken
