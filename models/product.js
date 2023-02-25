@@ -27,7 +27,7 @@ const productSchema = mongoose.Schema({
     ref: "cates",
   },
   stockQuantity: {
-    type: String,
+    type: Number,
     required: [true, "stockQuantity is required"]
   },
   brandName: {
