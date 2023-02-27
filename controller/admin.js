@@ -19,13 +19,14 @@ exports.AdminSignUp = async (req, res) => {
             brandname,
         }
         const createUser = await AddAdmin(data)
+
+        const { isSuperAdmin, ...others } = createUser._doc
+
         createUser.isAdmin = true
-        createUser.isSuperAdmin = true;
         const myToken = jwt.sign({
             id: createUser._id,
             password: createUser.password,
             IsAdmin: createUser.isAdmin,
-            IsSuperAdmin: createUser.isSuperAdmin,
         },
             process.env.JWT_TOKEN, { expiresIn: "1d" })
 
@@ -49,7 +50,7 @@ exports.AdminSignUp = async (req, res) => {
 
             res.status(201).json({
                 message: "User created",
-                data: createUser
+                data: others
             });
         }
     } catch (err) {
@@ -103,7 +104,7 @@ exports.AdminVerify = async (req, res) => {
                 new: true
             }
         )
-        
+
         // user.Verify = true,
         // await user.save()
 
@@ -122,29 +123,29 @@ exports.Forgotpassword = async (req, res) => {
     try {
         const { email } = req.body
         const userEmail = await AddAdmin.findOne({ email })
-        if (!userEmail){ 
-             res.status(404).json({ message: "No Email" })
-    }else{
-        const myToken = jwt.sign({
-            id: userEmail._id,
-            IsAdmin: userEmail.isAdmin,
-            isSuperAdmin: createUser.isSuperAdmin
-        }, process.env.JWT_TOKEN, { expiresIn: "1m" })
+        if (!userEmail) {
+            res.status(404).json({ message: "No Email" })
+        } else {
+            const myToken = jwt.sign({
+                id: userEmail._id,
+                IsAdmin: userEmail.isAdmin,
+                isSuperAdmin: createUser.isSuperAdmin
+            }, process.env.JWT_TOKEN, { expiresIn: "1m" })
 
-        const VerifyLink = `${req.protocol}://safehome.onrender.com/#/resetpassword/${userEmail._id}`
-        const message = `Use this link ${VerifyLink} to change your password`;
-        mailSender({
-            email: userEmail.email,
-            subject: "Reset Pasword",
-            message,
-        })
+            const VerifyLink = `${req.protocol}://safehome.onrender.com/#/resetpassword/${userEmail._id}`
+            const message = `Use this link ${VerifyLink} to change your password`;
+            mailSender({
+                email: userEmail.email,
+                subject: "Reset Pasword",
+                message,
+            })
 
-        res.status(202).json({
-            message: "email have been sent"
-        })
+            res.status(202).json({
+                message: "email have been sent"
+            })
 
-        // console.log(userEmail);
-    }
+            // console.log(userEmail);
+        }
     } catch (err) {
         res.status(400).json({
             message: err.message
@@ -205,13 +206,13 @@ exports.UpdateUsers = async (req, res) => {
         const id = req.params.userid;
         const userid = await AddAdmin.findById(id)
         const result = await cloudinary.uploader.upload(req.files.image.tempFilePath)
-        const { name, email, password, brandname} = req.body
+        const { name, email, password, brandname } = req.body
         const newUpdate = {
             name: req.body.name,
             email: req.body.email,
             password: req.body.password,
             image: result.secure_url,
-            brandname:req.body.brandname, 
+            brandname: req.body.brandname,
             cloudId: result.public_id,
         }
         const Update = await AddAdmin.findByIdAndUpdate(id, newUpdate);
@@ -224,8 +225,8 @@ exports.UpdateUsers = async (req, res) => {
             message: err.message
         });
     }
-} 
-  
+}
+
 
 exports.SuperASignUp = async (req, res) => {
     try {
@@ -241,7 +242,6 @@ exports.SuperASignUp = async (req, res) => {
         }
         const createUser = await AddAdmin(data)
         createUser.verify = true;
-        createUser.isAdmin = true;
         createUser.isSuperAdmin = true;
         const myToken = jwt.sign({
             id: createUser._id,
@@ -279,14 +279,14 @@ exports.SuperASignUp = async (req, res) => {
 }
 
 // get all users
-exports.getAllUsers = async(req,res) => {
-    try{
+exports.getAllUsers = async (req, res) => {
+    try {
         const allUsers = await AddAdmin.find();
         res.status(200).json({
             message: "All Users" + allUsers.length,
             data: allUsers
         })
-    } catch (error){
+    } catch (error) {
         res.status(400).json({
             message: error.message
         })
@@ -294,14 +294,14 @@ exports.getAllUsers = async(req,res) => {
 }
 
 // get only user
-exports.getAllAdmin = async(req,res) => {
-    try{
-        const allAdmin = await AddAdmin.find().where({"isAdmin":true})
+exports.getAllAdmin = async (req, res) => {
+    try {
+        const allAdmin = await AddAdmin.find().where({ "isAdmin": true })
         res.status(200).json({
             message: "All Admin" + allAdmin.length,
             data: allAdmin
         })
-    } catch (error){
+    } catch (error) {
         res.status(400).json({
             message: error.message
         })
