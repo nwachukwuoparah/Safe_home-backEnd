@@ -241,6 +241,7 @@ exports.SuperASignUp = async (req, res) => {
             brandname,
         }
         const createUser = await AddAdmin(data)
+
         createUser.verify = true;
         createUser.isSuperAdmin = true;
         const myToken = jwt.sign({
@@ -250,6 +251,7 @@ exports.SuperASignUp = async (req, res) => {
         },
             process.env.JWT_TOKEN, { expiresIn: "1d" })
 
+        const { isAdmin, ...others } = createUser._doc
         createUser.token = myToken
         const checker = await AddAdmin.findOne({ email });
         if (checker) {
@@ -268,7 +270,7 @@ exports.SuperASignUp = async (req, res) => {
             // });
             res.status(201).json({
                 message: "User created",
-                data: createUser
+                data: others
             });
         }
     } catch (err) {
