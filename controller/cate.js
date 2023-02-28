@@ -2,7 +2,7 @@ const express = require("express")
 const Cates = require("../models/CateModle")
 const ProductCates = require("../models/product")
 
-exports.NewCates = asyncHandler(async (req, res) => {
+exports.NewCates = async (req, res) => {
   try {
     const productId = req.params.productId;
     const products = await ProductCates.findById(productId);
@@ -16,10 +16,10 @@ exports.NewCates = asyncHandler(async (req, res) => {
       message: e.message,
     });
   }
-});
+};
 
 // get allCategory
-exports.getAllCates = asyncHandler  (async(req, res) => {
+exports.getAllCates = async(req, res) => {
   try{
       const category = req.params.category;
       const allCategory = await Cates.find();
@@ -33,7 +33,7 @@ exports.getAllCates = asyncHandler  (async(req, res) => {
           message: error.message
       })
   } 
-})
+}
 
 
 // get category by name

@@ -18,7 +18,7 @@ exports.AdminSignUp = async (req, res) => {
             password: hash,
             brandname,
         }
-        
+
         const createUser = await AddAdmin(data)
 
         const { isSuperAdmin, ...others } = createUser._doc
@@ -140,7 +140,7 @@ exports.Forgotpassword = async (req, res) => {
                 subject: "Reset Pasword",
                 message,
             })
-
+      
             res.status(202).json({
                 message: "email have been sent"
             })
@@ -311,4 +311,18 @@ exports.getAllAdmin = async (req, res) => {
     }
 }
 
-// get
+// delete all users
+exports.delUser = async(req,res)=>{
+    try {
+        const userId = req.body.userId;
+        const user = await AddAdmin.findById(userId);
+        await AddAdmin.deleteOne(userId, user);
+        res.status(200).json({
+            message: "Deleted successfully..."
+        })
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        })
+    }
+};

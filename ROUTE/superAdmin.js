@@ -6,5 +6,6 @@ const superRoutes = express.Router();
 superRoutes.route("/super").post(SuperASignUp)
 superRoutes.route('/allUsers/:id').get(getAllUsers)
 superRoutes.route('/allAdmin/:id').get(getAllAdmin)
+superRoutes.route('/delete/:id').get(getAllAdmin)
 
 module.exports = superRoutes

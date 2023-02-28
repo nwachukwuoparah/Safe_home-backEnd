@@ -2,7 +2,7 @@ const express = require("express")
 
 const cateRouter = express.Router();
 
-const {NewCates,getAllCates,getCategoryByName} = require('../controller/category');
+const {NewCates,getAllCates,getCategoryByName} = require('../controller/cate');
 //const {IsSuperAdmin} = require("../helper/auth")
 
 
