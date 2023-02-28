@@ -6,7 +6,7 @@ const cloudinary = require("../helper/cloudinary");
 exports.NewPro = async (req, res) => {
     try {
         const categoryId = req.params.categoryId
-       const theCat = await Cat.findById(categoryId)
+        const theCat = await Cat.findById(categoryId)
         const result = await cloudinary.uploader.upload(req.files.image.tempFilePath)
         const fruniData = {
             title: req.body.title,
@@ -15,23 +15,23 @@ exports.NewPro = async (req, res) => {
             cloudId: result.public_id,
             price: req.body.price,
             rating: req.body.rating,
-            numReview:req.body.numReview,
+            numReview: req.body.numReview,
             categories: req.body.categories,
             stockQuantity: req.body.stockQuantity,
             brandName: req.body.brandName
         }
-            // const data = {title,description,image,price,rating,numReview,stockQuantity,cloudId}
+        // const data = {title,description,image,price,rating,numReview,stockQuantity,cloudId}
         const created = await Addfurni(fruniData)
         await created.save();
         if (theCat && Array.isArray(theCat.products)) {
-           await created.save();
-           theCat.products.push(created);
-          await theCat.save();
-  } 
-  res.status(201).json({
-    message: "Furniture item created successfully",
-    furniture: created
-});
+            await created.save();
+            theCat.products.push(created);
+            await theCat.save();
+        }
+        res.status(201).json({
+            message: "Furniture item created successfully",
+            furniture: created
+        });
     } catch (e) {
         res.status(400).json({
             message: e.message
@@ -85,7 +85,8 @@ exports.GetSingle = asyncHandler(async (req, res) => {
 exports.DeleteFurni = async (req, res) => {
     try {
         const productid = req.params.productid
-        await Addfurni.deleteOne({productid});
+        await Addfurni.deleteOne({ _id: productid });
+        console.log(productid)
         res.status(200).json({
             message: "Deleted",
         });

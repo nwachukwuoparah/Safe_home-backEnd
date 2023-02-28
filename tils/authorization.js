@@ -33,7 +33,7 @@ const isSignIn = async (req, res, next) => {
 const IsAdminAuth = (req, res, next)=>{
     isSignIn(req, res, ()=>{
         // console.log("lookig", req.user);
-        if(req.user.isAdmin){
+        if(req.user.IsAdmin){
             next()
         }else{
             res.status(404).json({message: "You are not an admin"})

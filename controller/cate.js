@@ -11,7 +11,7 @@ exports.NewCates = async (req, res) => {
       message: "Categories successful",
       data: category,
     });
-} catch (e) {
+  } catch (e) {
     res.status(400).json({
       message: e.message,
     });
@@ -33,29 +33,29 @@ exports.getAllCates = async(req, res) => {
           message: error.message
       })
   } 
-}
 
+ }
 
 // get category by name
 
 exports.getCategoryByName = async (req, res) => {
-try {
-  const name = req.params.name;
-  const categoryName = await Cates.find({ categoryName: name });
-  if (categoryName) {
-    res.status(200).json({
-      message: "Category retrieved successfully",
-      length : categoryName.length,
-      data: categoryName,
-    });
-  } else {
-    res.status(404).json({
-      message: "Category not found",
+  try {
+    const name = req.params.name;
+    const categoryName = await Cates.find({ categoryName: name });
+    if (categoryName) {
+      res.status(200).json({
+        message: "Category retrieved successfully",
+        length: categoryName.length,
+        data: categoryName,
+      });
+    } else {
+      res.status(404).json({
+        message: "Category not found",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: "Server error",
     });
   }
-} catch (error) {
-  res.status(500).json({
-    message: "Server error",
-  });
-}
 };
