@@ -2,9 +2,13 @@ const express = require("express")
 
 const cateRouter = express.Router();
 
-const {NewCates,categorizedProducts} = require("../controller/cate")
+const {NewCates,getAllCates,getCategoryByName} = require('../controller/category');
+//const {IsSuperAdmin} = require("../helper/auth")
 
-cateRouter.route("/cate").post(NewCates)
-cateRouter.route("/cates/:category").get(categorizedProducts)
 
+
+
+cateRouter.route("/cates").post(NewCates);
+cateRouter.route("/allCates/category").get(getAllCates)
+cateRouter.route("/categories/:name").get(getCategoryByName)
 module.exports = cateRouter;

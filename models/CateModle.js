@@ -4,10 +4,10 @@ const cateSchema = new mongoose.Schema ({
     type: String,
     required: [true, "categoryName is required"],
    },
-    products: [{
+    products: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "product",
-    }],
+    },
    },
    
    {

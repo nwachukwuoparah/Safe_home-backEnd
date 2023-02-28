@@ -5,8 +5,8 @@ const cloudinary = require("../helper/cloudinary");
 
 exports.NewPro = async (req, res) => {
     try {
-        const cate = req.params.category
-        const theCat = await Cat.findById(cate)
+        const categoryId = req.params.categoryId
+       const theCat = await Cat.findById(categoryId)
         const result = await cloudinary.uploader.upload(req.files.image.tempFilePath)
         const fruniData = {
             title: req.body.title,
@@ -15,31 +15,29 @@ exports.NewPro = async (req, res) => {
             cloudId: result.public_id,
             price: req.body.price,
             rating: req.body.rating,
-            // categories: req.body.categories,
+            numReview:req.body.numReview,
+            categories: req.body.categories,
             stockQuantity: req.body.stockQuantity,
             brandName: req.body.brandName
         }
             // const data = {title,description,image,price,rating,numReview,stockQuantity,cloudId}
-        const creater = await Addfurni(fruniData);
-
-        creater.categories = theCat;
-        creater.save();
-        theCat.products.push(creater)
-        theCat.save();
-        // console.log(created)
-        res.status(201).json({
-            message: "New Furniture Added",
-            // data: created
-        });
-
+        const created = await Addfurni(fruniData)
+        await created.save();
+        if (theCat && Array.isArray(theCat.products)) {
+           await created.save();
+           theCat.products.push(created);
+          await theCat.save();
+  } 
+  res.status(201).json({
+    message: "Furniture item created successfully",
+    furniture: created
+});
     } catch (e) {
         res.status(400).json({
             message: e.message
         });
     }
 }
-
-
 exports.GetallFurni = asyncHandler(async (req, res) => {
     try {
         const user = req.params.id;

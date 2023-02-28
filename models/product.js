@@ -23,7 +23,7 @@ const productSchema = mongoose.Schema({
     default: 0,
   },
   categories: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: "cates",
   },
   stockQuantity: {

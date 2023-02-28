@@ -1,44 +1,61 @@
 const express = require("express")
 const Cates = require("../models/CateModle")
-const prod = require("../models/product")
+const ProductCates = require("../models/product")
 
-exports.NewCates = async(req, res) => {
-  try{
-    const categoryName = req.body.categoryName;
-    const categories = {
-      categoryName,
-    }
-    // const category = await Cates.insertMany(categories)
-    const category = await Cates.create(categories);
+exports.NewCates = asyncHandler(async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const products = await ProductCates.findById(productId);
+    const category = await Cates.create({ categoryName: req.body.categoryName });
     res.status(201).json({
-      message: "Category is created",
-      data: category
-    })
-  } catch(error){
+      message: "Categories successful",
+      data: category,
+    });
+} catch (e) {
     res.status(400).json({
-      message: error.message
-    })
+      message: e.message,
+    });
   }
-}
+});
 
-
-exports.categorizedProducts = async (req, res) => {
-   try {
-    const category = req.params.category;
-    // const categoryId = await Cates.findById(categoryId)
-    const categoryProducts = await prod.find({category: category})
-    console.log(categoryProducts)
-    // const productCodes = categoryProducts.map(product => product.code);
-    if (categoryProducts) {
-      res.send(categoryProducts);
-    } else {
+// get allCategory
+exports.getAllCates = asyncHandler  (async(req, res) => {
+  try{
+      const category = req.params.category;
+      const allCategory = await Cates.find();
+      res.status(201).json({
+          message: "Category was gotten",     
+          length: allCategory.length,
+          data: allCategory,
+      })
+  } catch(error) {
       res.status(404).json({
-        message: "Plenty Error"
+          message: error.message
       })
   } 
-  }catch (err) {
-    res.status(400).json({
-      message: err.message
-    })
+})
+
+
+// get category by name
+
+exports.getCategoryByName = async (req, res) => {
+try {
+  const name = req.params.name;
+  const categoryName = await Cates.find({ categoryName: name });
+  if (categoryName) {
+    res.status(200).json({
+      message: "Category retrieved successfully",
+      length : categoryName.length,
+      data: categoryName,
+    });
+  } else {
+    res.status(404).json({
+      message: "Category not found",
+    });
+  }
+} catch (error) {
+  res.status(500).json({
+    message: "Server error",
+  });
 }
-}
+};
