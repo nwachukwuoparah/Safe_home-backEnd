@@ -9,7 +9,5 @@ const {NewCates,getAllCates,getCategoryByName} = require('../controller/cate');
 cateRouter.route("/cates").post(NewCates);
 cateRouter.route("/allCates/category").get(getAllCates)
 
-
-
 cateRouter.route("/categories/:name").get(getCategoryByName)
 module.exports = cateRouter;
