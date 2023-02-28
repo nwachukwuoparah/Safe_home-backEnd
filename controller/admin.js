@@ -18,6 +18,7 @@ exports.AdminSignUp = async (req, res) => {
             password: hash,
             brandname,
         }
+        
         const createUser = await AddAdmin(data)
 
         const { isSuperAdmin, ...others } = createUser._doc
