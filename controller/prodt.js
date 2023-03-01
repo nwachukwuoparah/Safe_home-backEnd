@@ -1,12 +1,11 @@
 const Addfurni = require('../models/product')
 const asyncHandler = require("express-async-handler");
-const Cat = require("../models/CateModle")
 const cloudinary = require("../helper/cloudinary");
 
 exports.NewPro = async (req, res) => {
     try {
         const categoryId = req.params.categoryId
-        const theCat = await Cat.findById(categoryId)
+        const theCat = await Addfurni.findById(categoryId)
         const result = await cloudinary.uploader.upload(req.files.image.tempFilePath)
         const fruniData = {
             title: req.body.title,
@@ -40,14 +39,12 @@ exports.NewPro = async (req, res) => {
 }
 exports.GetallFurni = asyncHandler(async (req, res) => {
     try {
-        const user = req.params.id;
-        const allFurni = await Addfurni.find(user);
+        const allFurni = await Addfurni.find();
         res.status(201).json({
             message: "Allfurni",
             length: allFurni.length,
             data: allFurni
         });
-
     } catch (e) {
         res.status(400).json({
             message: e.message
@@ -55,6 +52,25 @@ exports.GetallFurni = asyncHandler(async (req, res) => {
     }
 }
 )
+exports.GetallFurniByCategory = asyncHandler(async (req, res) => {
+    try {
+        // const categoryId = req.params.id;
+        // const category = await Addfurni.find({categories: categoryId});
+        const query = req.query.category ? {categories: req.query.category} : {}
+        const product = await Addfurni.find(query)
+        res.status(201).json({
+            message: "Allfurni By Categories",
+            length: product.length,
+            data: product
+        });
+    } catch (e) {
+        res.status(400).json({
+            message: e.message
+        });
+    }
+}
+)
+
 //asyncHandler(
 exports.GetSingle = asyncHandler(async (req, res) => {
     try {
@@ -98,7 +114,6 @@ exports.DeleteFurni = async (req, res) => {
     }
 }
 
-
 exports.UpdateFurni = asyncHandler(async (req, res) => {
     try {
         const result = await cloudinary.uploader.upload(req.files.image.tempFilePath)
@@ -110,11 +125,9 @@ exports.UpdateFurni = asyncHandler(async (req, res) => {
             image: result.secure_url,
             cloudId: result.public_id,
             price: req.body.price,
-            rating: req.body.rating,
-            numReview: req.body.numReview,
             stockQuantity: req.body.stockQuantity,
         }
-        const reviewFurni = await Addfurni.findByIdAndUpdate(productId, newUpdate);
+        const reviewFurni = await Addfurni.findByIdAndUpdate(productId, newUpdate, { new: true });
         res.status(201).json({
             message: "update was successful",
             data: reviewFurni

@@ -8,4 +8,6 @@ superRoutes.route('/allUsers/:id').get(getAllUsers)
 superRoutes.route('/allAdmin/:id').get(getAllAdmin)
 superRoutes.route('/delete/:userId').delete(DelUser)
 
+
+
 module.exports = superRoutes
