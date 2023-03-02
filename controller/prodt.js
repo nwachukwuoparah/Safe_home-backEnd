@@ -127,6 +127,11 @@ exports.UpdateFurni = asyncHandler(async (req, res) => {
         };
 
         if (req.files && req.files.image) {
+            const id = req.params.id
+            const blog = await Addfurni.findById(id);
+            console.log(blog)
+            await cloudinary.uploader.destroy(blog.cloudId)
+            // await fs.unlinkSync(blog.image)
             const result = await cloudinary.uploader.upload(
                 req.files.image.tempFilePath
             );
@@ -139,7 +144,7 @@ exports.UpdateFurni = asyncHandler(async (req, res) => {
         const updatedProduct = await Addfurni.findByIdAndUpdate(
             productId,
             updateFields,
-            { new: true } 
+            { new: true }
         );
 
         res.status(201).json({
@@ -150,6 +155,6 @@ exports.UpdateFurni = asyncHandler(async (req, res) => {
         res.status(400).json({
             message: err.message
         });
-    } 
+    }
 });
 
