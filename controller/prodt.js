@@ -56,7 +56,7 @@ exports.GetallFurniByCategory = asyncHandler(async (req, res) => {
     try {
         // const categoryId = req.params.id;
         // const category = await Addfurni.find({categories: categoryId});
-        const query = req.query.category ? {categories: req.query.category} : {}
+        const query = req.query.category ? { categories: req.query.category } : {}
         const product = await Addfurni.find(query)
         res.status(201).json({
             message: "Allfurni By Categories",
@@ -114,29 +114,67 @@ exports.DeleteFurni = async (req, res) => {
     }
 }
 
+
+
+
 exports.UpdateFurni = asyncHandler(async (req, res) => {
     try {
-        const result = await cloudinary.uploader.upload(req.files.image.tempFilePath)
-        const id = req.params.id;
-        const productId = await Addfurni.findById(id)
-        const newUpdate = {
+        let updateFields = {
             title: req.body.title,
             description: req.body.description,
-            image: result.secure_url,
-            cloudId: result.public_id,
             price: req.body.price,
-            stockQuantity: req.body.stockQuantity,
+            stockQuantity: req.body.stockQuantity
+        };
+
+        if (req.files && req.files.image) {
+            const result = await cloudinary.uploader.upload(
+                req.files.image.tempFilePath
+            );
+            updateFields.image = result.secure_url;
+            updateFields.cloudId = result.public_id;
         }
-        const reviewFurni = await Addfurni.findByIdAndUpdate(productId, newUpdate, { new: true });
+
+        const productId = req.params.id;
+        const updatedProduct = await Addfurni.findByIdAndUpdate(
+            productId,
+            updateFields,
+            { new: true }
+        );
+
         res.status(201).json({
             message: "update was successful",
-            data: reviewFurni
+            data: updatedProduct
         });
     } catch (err) {
         res.status(400).json({
             message: err.message
         });
     }
-}
-)
+});
+
+// exports.UpdateFurni = asyncHandler(async (req, res) => {
+//     try {
+//         const result = await cloudinary.uploader.upload(req.files.image.tempFilePath)
+//         const id = req.params.id;
+//         const product = await Addfurni.findById(id);
+//         const newUpdate = {
+//             title: req.body.title,
+//             description: req.body.description,
+//             image: result.secure_url,
+//             cloudId: result.public_id,
+//             price: req.body.price,
+//             stockQuantity: req.body.stockQuantity,
+//         }
+//         const updatedProduct = await Addfurni.findByIdAndUpdate(product._id, newUpdate, { new: true });
+//         res.status(201).json({
+//             message: "update was successful",
+//             data: updatedProduct
+//         });
+//     } catch (err) {
+//         res.status(400).json({
+//             message: err.message
+//         });
+//     }
+// }
+// )
 
