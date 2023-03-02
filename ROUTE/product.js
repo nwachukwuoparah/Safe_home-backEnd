@@ -8,7 +8,7 @@ const router = express.Router();
 
 // router.get('/admin/:adminId/category', IsAdminAuth, GetallFurniByCategory)
 router.get('/category', GetallFurniByCategory)
-router.post('/admin/:adminId', IsAdminAuth, NewPro) 
+router.post('/admin/:adminId', IsAdminAuth,NewPro) 
 router.delete('/admin/:adminId/:productid', IsAdminAuth, DeleteFurni)
 router.patch('/admin/:adminId/:id', IsAdminAuth, UpdateFurni)
 

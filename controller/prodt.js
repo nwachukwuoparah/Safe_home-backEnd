@@ -126,13 +126,7 @@ exports.UpdateFurni = asyncHandler(async (req, res) => {
             stockQuantity: req.body.stockQuantity
         };
 
-        if (req.files && req.files.image){  
-
-            // const id = req.params.id
-            // const blog = await blogModel.findById( id );
-            // await cloudinary.uploader.destroy( blog.cloud_id )
-            // await fs.unlinkSync( blog.image )
-
+        if (req.files && req.files.image) {
             const result = await cloudinary.uploader.upload(
                 req.files.image.tempFilePath
             );
@@ -141,6 +135,7 @@ exports.UpdateFurni = asyncHandler(async (req, res) => {
         }
 
         const productId = req.params.id;
+        // console.log(productId)
         const updatedProduct = await Addfurni.findByIdAndUpdate(
             productId,
             updateFields,
@@ -157,5 +152,4 @@ exports.UpdateFurni = asyncHandler(async (req, res) => {
         });
     } 
 });
-
 
