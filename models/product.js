@@ -23,9 +23,10 @@ const productSchema = mongoose.Schema({
     default: 0,
   },
   categories: {
-    type: String,
-    ref: "cates",
+    type: Array,
+    required: [true, "Enter a category"]
   },
+  // categories: [String],
   stockQuantity: {
     type: Number,
     required: [true, "stockQuantity is required"]

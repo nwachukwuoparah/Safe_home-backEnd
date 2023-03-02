@@ -140,7 +140,7 @@ exports.Forgotpassword = async (req, res) => {
                 subject: "Reset Pasword",
                 message,
             })
-      
+
             res.status(202).json({
                 message: "email have been sent"
             })
@@ -312,11 +312,10 @@ exports.getAllAdmin = async (req, res) => {
 }
 
 // delete all users
-exports.delUser = async(req,res)=>{
+exports.DelUser = async (req, res) => {
     try {
-        const userId = req.body.userId;
-        const user = await AddAdmin.findById(userId);
-        await AddAdmin.deleteOne(userId, user);
+        const userId = req.params.userId;
+        await AddAdmin.deleteOne({ _id: userId });
         res.status(200).json({
             message: "Deleted successfully..."
         })

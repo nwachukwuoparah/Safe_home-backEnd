@@ -19,9 +19,16 @@ exports.newOrder = asyncHandler (async (req, res) => {
         delivered,
         }
         const created = await Order.create(orderProduct);
+        const Delivered = `${req.protocol}://safehome.onrender.com/#/order/${created._id}`
+            const message = `There value customer, your order have been recieve and will be delivered to you in the address you have input in your form you filled. Please click on this link ${Delivered} if you have successfully recieved the goods. Thanks for patronizing us @Safe_Home-Furniture`;
+            mailSender({
+                email: created.customerEmail,
+                subject: "Order Placed is complete",
+                message,
+            });
         res.status(201).json({
             message: "Order placed successful",
-            data: created
+            data: created 
         });
     }catch(e){
         res.status(400).json({
