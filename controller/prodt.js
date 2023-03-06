@@ -1,8 +1,9 @@
 const Addfurni = require('../models/product')
 const asyncHandler = require("express-async-handler");
 const cloudinary = require("../helper/cloudinary");
+//const userModel = require("../models/user")
 
-exports.NewPro = async (req, res) => {
+exports.NewPro = async(req,res) => {
     try {
         const categoryId = req.params.categoryId
         const theCat = await Addfurni.findById(categoryId)
@@ -15,26 +16,27 @@ exports.NewPro = async (req, res) => {
             price: req.body.price,
             rating: req.body.rating,
             numReview: req.body.numReview,
-            categories: req.body.categories,
+            categories: req.body.categories, 
             stockQuantity: req.body.stockQuantity,
             brandName: req.body.brandName
         }
         // const data = {title,description,image,price,rating,numReview,stockQuantity,cloudId}
-        const created = await Addfurni(fruniData)
+        const created = await Addfurni(fruniData) 
+       // const theUser = await userModel.findById(userId)
         await created.save();
-        if (theCat && Array.isArray(theCat.products)) {
+        if (theCat && Array.isArray(theCat.products)) {  
             await created.save();
-            theCat.products.push(created);
+            theCat.products.push(created); 
             await theCat.save();
-        }
+        } 
         res.status(201).json({
             message: "Furniture item created successfully",
             furniture: created
         });
     } catch (e) {
-        res.status(400).json({
+        res.status(400).json({ 
             message: e.message
-        });
+        });   
     }
 }
 exports.GetallFurni = asyncHandler(async (req, res) => {
@@ -67,7 +69,7 @@ exports.GetallFurniByCategory = asyncHandler(async (req, res) => {
             message: e.message
         });
     }
-}
+} 
 )
 
 //asyncHandler(
@@ -125,11 +127,10 @@ exports.UpdateFurni = asyncHandler(async (req, res) => {
             price: req.body.price,
             stockQuantity: req.body.stockQuantity
         };
-
         if (req.files && req.files.image) {
             const id = req.params.id
             const blog = await Addfurni.findById(id);
-            console.log(blog)
+            // console.log(blog)
             await cloudinary.uploader.destroy(blog.cloudId)
             // await fs.unlinkSync(blog.image)
             const result = await cloudinary.uploader.upload(
@@ -138,9 +139,7 @@ exports.UpdateFurni = asyncHandler(async (req, res) => {
             updateFields.image = result.secure_url;
             updateFields.cloudId = result.public_id;
         }
-
         const productId = req.params.id;
-        // console.log(productId)
         const updatedProduct = await Addfurni.findByIdAndUpdate(
             productId,
             updateFields,

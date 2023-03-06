@@ -2,7 +2,7 @@ require("dotenv").config();
 const dotenv = require("dotenv")
 const express = require("express")
 dotenv.config({ path: "./CONFIG/config.env" })
-const adminRoute = require('./ROUTE/product');
+const router = require('./ROUTE/rating');
 const user = require('./ROUTE/UserRoute')
 const Auth = require('./ROUTE/Adduser')
 const Authen = require("./ROUTE/addAdmin")
@@ -11,7 +11,7 @@ const importData = require("./Dataimport")
 const { errorHandler, notfound } = require("./middleware/errorhand");
 const orderRouter = require("./ROUTE/orderRoute")
 const stockRouter = require("./ROUTE/InStock")
-const router = require("./ROUTE/rating")
+const productRoute = require("./ROUTE/product")
 const superRoutes = require('./ROUTE/superAdmin')
 const cors = require("cors")
 const fileUpload = require('express-fileupload');
@@ -39,11 +39,11 @@ app.use("/api/import", importData)
 
 app.use('/api', Auth);
 app.use("/api", Authen)
-app.use('/api', adminRoute);
+app.use('/api', router);
 app.use("/api", user)
 app.use("/api", commentRouter)
 app.use("/api", orderRouter)
-app.use("/api", router)
+app.use("/api", productRoute)
 app.use("/api", stockRouter)
 app.use("/api", superRoutes)
 app.use("/api", cateRouter)

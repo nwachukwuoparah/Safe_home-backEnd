@@ -31,21 +31,24 @@ const userSchema = new mongoose.Schema ({
         default: false
      },
 
-    isAdmin: {  
+    isAdmin: { 
         type: Boolean,
-        default: false
+        default: false 
     },
     isSuperAdmin: {  
         type: Boolean,
         default: false
     },
+    // role: {
+    //     type: String,
+    //     enum: ['user', 'admin', 'superadmin'],
+    //     default: 'user',
+    // },
 
     token: {
         type: String,
-    }
- 
-   },
-
+    },
+},
    {
     timestamps: true,
    });

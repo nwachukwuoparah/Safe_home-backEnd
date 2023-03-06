@@ -61,13 +61,13 @@ exports.AdminSignUp = async (req, res) => {
     }
 }
 
-exports.Adminlogin = async (req, res) => {
+exports.Login = async (req, res) => {
     try {
         const { email } = req.body;
         const check = await AddAdmin.findOne({ email: email })
         if (!check) return res.status(404).json({
             message: "Not a user"
-        })
+        })   
         const isPassword = await bcryptjs.compare(req.body.password, check.password)
         if (!isPassword) return res.status(404).json({ message: "Email or password incorrect" })
 
@@ -75,7 +75,6 @@ exports.Adminlogin = async (req, res) => {
             id: check._id,
             password: check.password,
             IsAdmin: check.isAdmin,
-            // IsSuperAdmin: createUser.isSuperAdmin,
         }, process.env.JWT_TOKEN, { expiresIn: "1d" })
 
         check.token = myToken

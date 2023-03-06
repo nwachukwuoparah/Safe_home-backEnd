@@ -23,7 +23,7 @@ exports.signUpUser = async (req, res) => {
             id: createUser._id,
             password: createUser.password,
             IsAdmin: createUser.isAdmin
-            },
+        },
             process.env.JWT_TOKEN, { expiresIn: "1d" })
 
         createUser.token = myToken
@@ -32,7 +32,7 @@ exports.signUpUser = async (req, res) => {
             res.status(400).json({
                 message: "Email already taken.."
             })
-        } else { 
+        } else {
             await createUser.save()
             const VerifyLink = `${req.protocol}://safehome.onrender.com/#/verify/${createUser._id}`
             const message = `Thank you for registering with us. Please click on this link ${VerifyLink} to verify`;
