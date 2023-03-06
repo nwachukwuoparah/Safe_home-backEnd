@@ -129,7 +129,7 @@ exports.Forgotpassword = async (req, res) => {
             const myToken = jwt.sign({
                 id: userEmail._id,
                 IsAdmin: userEmail.isAdmin,
-                isSuperAdmin: createUser.isSuperAdmin
+                //isSuperAdmin: createUser.isSuperAdmin 
             }, process.env.JWT_TOKEN, { expiresIn: "1m" })
 
             const VerifyLink = `${req.protocol}://safehome.onrender.com/#/resetpassword/${userEmail._id}`
@@ -145,7 +145,7 @@ exports.Forgotpassword = async (req, res) => {
             })
 
             // console.log(userEmail);
-        }
+        } 
     } catch (err) {
         res.status(400).json({
             message: err.message
@@ -160,7 +160,7 @@ exports.passwordchange = async (req, res) => {
         const id = req.params.id;
         const users = await AddAdmin.findById(id);
         const saltPwd = await bcryptjs.genSalt(10);
-        const hassPwd = await bcryptjs.hash(password, saltPwd);
+        const hassPwd = await bcryptjs.hash(password, saltPwd); 
         await AddAdmin.findByIdAndUpdate(users._id, {
             password: hassPwd
         },
