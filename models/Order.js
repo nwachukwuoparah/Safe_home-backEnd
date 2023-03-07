@@ -35,6 +35,10 @@ const orderSchema = new mongoose.Schema ({
         type: Array,
         required: [true, "product is required"],
     },
+    userId: {
+        type:String,
+        required: [true, "userId is required"],
+    },
    },
    
    {
