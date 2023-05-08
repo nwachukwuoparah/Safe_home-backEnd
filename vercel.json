@@ -1,6 +1,7 @@
 {
+    "verson": 2,
     "name": "safehome_furnitures",
-    "build": [
+    "builds": [
         {
             "src": "app.js",
             "use": "@vercel/node"
