@@ -4,14 +4,15 @@ const cloudinary = require("../helper/cloudinary");
 //const userModel = require("../models/user")
 
 exports.NewPro = async(req,res) => {
-    try {
+    try
+     {
         const categoryId = req.params.categoryId
         const theCat = await Addfurni.findById(categoryId)
         const result = await cloudinary.uploader.upload(req.files.image.tempFilePath)
         const fruniData = {
             title: req.body.title,
             description: req.body.description,
-            image: result.secure_url,
+            image: result.secure_url, 
             cloudId: result.public_id,
             price: req.body.price,
             rating: req.body.rating,

@@ -18,9 +18,7 @@ exports.AdminSignUp = async (req, res) => {
       password: hash,
       brandname,
     };
-
     const createUser = await AddAdmin(data);
-
     const { isSuperAdmin, ...others } = createUser._doc;
 
     createUser.isAdmin = true;
@@ -35,13 +33,15 @@ exports.AdminSignUp = async (req, res) => {
     );
 
     createUser.token = myToken;
+
     const checker = await AddAdmin.findOne({ email });
+
     if (checker) {
       res.status(400).json({
         message: "Email already taken..",
       });
     } else {
-      createUser.save();
+      await createUser.save();
       const VerifyLink = `${req.protocol}://safehome.onrender.com/#/verify/${createUser._id}`;
       const message = `Thank you for registering with us. Please click on this link ${VerifyLink} to verify`;
       mailSender({
@@ -55,6 +55,7 @@ exports.AdminSignUp = async (req, res) => {
       });
     }
   } catch (err) {
+    // console.log('err=> ', err)
     res.status(400).json({
       message: err.message,
     });
