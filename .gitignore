@@ -1,3 +1,4 @@
 /node_modules
 CONFIG
 ./cloudinary
+.env
