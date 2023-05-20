@@ -116,10 +116,7 @@ exports.DeleteFurni = async (req, res) => {
 }
 
 
-
-
 exports.UpdateFurni = asyncHandler(async (req, res) => {
-
     try {
         let updateFields = {
             title: req.body.title,

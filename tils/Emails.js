@@ -6,8 +6,8 @@ const mailSender = async(option)=>{
     const transporter = nodemailer.createTransport({
         service: process.env.SERVICE,
         auth: {
-            user: process.env.user,
-            pass: process.env.EMAILPASS,
+            user: process.env.EMAIL,
+            pass: process.env.EMAILPASSWORD,
             secure: false
         },
     })

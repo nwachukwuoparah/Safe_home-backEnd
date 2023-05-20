@@ -5,7 +5,7 @@ const app = require("./app");
 mongoose.set("strictQuery", true)
 
 const Db = process.env.DATABASE
-mongoose.connect(Db, {
+mongoose.connect(`${Db}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
@@ -15,5 +15,5 @@ mongoose.connect(Db, {
 const PORT =  process.env.PORT
 
 app.listen(PORT || 9098,() => {
-    console.log(`listening on port:`+PORT)
+    console.log(`listening on port:`+ PORT)
 })
