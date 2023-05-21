@@ -12,6 +12,7 @@ const mailSender = async (option) => {
         secure: false,
       },
     });
+    console.log("error from mail sender=> ", transporter);
 
     const mailOption = {
       from: process.env.EMAIL,
@@ -20,8 +21,10 @@ const mailSender = async (option) => {
       text: option.message,
     };
     
+    console.log("error from mail sender=> ", mailOption);
 
    const send =  await transporter.sendMail(mailOption);
+   console.log("error from mail sender=> ", send);
 
   } catch (error) {
     console.log("error from mail sender=> ", error);
