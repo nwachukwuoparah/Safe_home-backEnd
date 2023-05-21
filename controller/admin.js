@@ -19,9 +19,9 @@ exports.AdminSignUp = async (req, res) => {
       brandname,
     };
     const createUser = await AddAdmin(data);
+    createUser.isAdmin = true;
     const { isSuperAdmin, ...others } = createUser._doc;
 
-    createUser.isAdmin = true;
     const myToken = jwt.sign(
       {
         id: createUser._id,
@@ -55,7 +55,7 @@ exports.AdminSignUp = async (req, res) => {
       });
     }
   } catch (err) {
-    console.log('err=> ', err)
+    console.log("err=> ", err);
     res.status(400).json({
       message: err.message,
     });
